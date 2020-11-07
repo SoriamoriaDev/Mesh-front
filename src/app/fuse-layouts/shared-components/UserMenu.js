@@ -30,7 +30,7 @@ function UserMenu(props) {
 			<Button className="min-h-40 min-w-40 px-0 md:px-16 py-0 md:py-6" onClick={userMenuClick}>
 				<div className="hidden md:flex flex-col mx-4 items-end">
 					<Typography component="span" className="normal-case font-bold flex">
-						{user.data.displayName}
+						{user.f_name}
 					</Typography>
 					<Typography className="text-11 capitalize" color="textSecondary">
 						{user.role.toString()}
@@ -38,10 +38,10 @@ function UserMenu(props) {
 					</Typography>
 				</div>
 
-				{user.data.photoURL ? (
-					<Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
+				{user.images ? (
+					<Avatar className="md:mx-4" alt="user photo" src={user.images} />
 				) : (
-					<Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
+					<Avatar className="md:mx-4">{user.f_name}</Avatar>
 				)}
 			</Button>
 

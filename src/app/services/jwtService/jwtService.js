@@ -28,6 +28,8 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	handleAuthentication = () => {
+
+		console.log("Started handleAuthentication...")
 		const access_token = this.getAccessToken();
 
 		if (!access_token) {
@@ -37,6 +39,7 @@ class JwtService extends FuseUtils.EventEmitter {
 		}
 
 		if (this.isAuthTokenValid(access_token)) {
+			
 			this.setSession(access_token);
 			this.emit('onAutoLogin', true);
 		} else {
@@ -58,10 +61,15 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
+	/************************* 4) Actions connecting the API server to retrieve JWT    *********************/
+
+
 	signInWithEmailAndPassword = (email, password) => {
 		return new Promise((resolve, reject) => {
+			
 			axios
-				.get('/api/auth', {
+				//.get('/api/auth', {
+				.post(`${process.env.REACT_APP_API_URL}/login/web`, {
 					data: {
 						email,
 						password
@@ -69,7 +77,11 @@ class JwtService extends FuseUtils.EventEmitter {
 				})
 				.then(response => {
 					if (response.data.user) {
+						
+						console.log("response.data.user", response.data.user)
+
 						this.setSession(response.data.access_token);
+						
 						resolve(response.data.user);
 					} else {
 						reject(response.data.error);
@@ -78,17 +90,21 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
+	/************************* 6) Authenticate user with JWT after loging in    *********************/
+
 	signInWithToken = () => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('/api/auth/access-token', {
+				.post(`${process.env.REACT_APP_API_URL}/login/web/access-token`, {
 					data: {
 						access_token: this.getAccessToken()
 					}
 				})
 				.then(response => {
 					if (response.data.user) {
-						this.setSession(response.data.access_token);
+
+						console.log("response.data.access_token with new token :", response.data.updatedAccessToken)
+						this.setSession(response.data.updatedAccessToken);
 						resolve(response.data.user);
 					} else {
 						this.logout();
@@ -123,11 +139,15 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	isAuthTokenValid = access_token => {
+		console.log("Started isAuthTokenValid...")
 		if (!access_token) {
 			return false;
 		}
 		const decoded = jwtDecode(access_token);
+		console.log("Decoded.exp", decoded.exp)
 		const currentTime = Date.now() / 1000;
+		console.log("currentTime", currentTime)
+
 		if (decoded.exp < currentTime) {
 			console.warn('access token expired');
 			return false;

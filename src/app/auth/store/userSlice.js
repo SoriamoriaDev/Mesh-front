@@ -74,13 +74,14 @@ export const setUserData = user => async (dispatch, getState) => {
          */
 
 	history.location.state = {
-		redirectUrl: user.redirectUrl // for example 'apps/academy'
+		//redirectUrl: user.redirectUrl // for example 'apps/academy'
+		redirectUrl: '/welcome_map'
 	};
 
 	/*
     Set User Settings
      */
-	dispatch(setDefaultSettings(user.data.settings));
+	dispatch(setDefaultSettings(user.data.settings)); 
 
 	dispatch(setUser(user));
 };
@@ -188,9 +189,9 @@ export const updateUserData = user => async (dispatch, getState) => {
 const initialState = {
 	role: [], // guest
 	data: {
-		displayName: 'John Doe',
+		displayName: 'Mr Visitor',
 		photoURL: 'assets/images/avatars/Velazquez.jpg',
-		email: 'johndoe@withinpixels.com',
+		email: 'visitor@gmail.com',
 		shortcuts: ['calendar', 'mail', 'contacts', 'todo']
 	}
 };
