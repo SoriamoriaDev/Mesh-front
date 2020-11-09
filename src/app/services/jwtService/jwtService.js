@@ -29,7 +29,7 @@ class JwtService extends FuseUtils.EventEmitter {
 
 	handleAuthentication = () => {
 
-		console.log("Started handleAuthentication...")
+		//console.log("Started handleAuthentication...")
 		const access_token = this.getAccessToken();
 
 		if (!access_token) {
@@ -78,7 +78,7 @@ class JwtService extends FuseUtils.EventEmitter {
 				.then(response => {
 					if (response.data.user) {
 						
-						console.log("response.data.user", response.data.user)
+						//console.log("response.data.user", response.data.user)
 
 						this.setSession(response.data.access_token);
 						
@@ -103,7 +103,7 @@ class JwtService extends FuseUtils.EventEmitter {
 				.then(response => {
 					if (response.data.user) {
 
-						console.log("response.data.access_token with new token :", response.data.updatedAccessToken)
+						//console.log("response.data.access_token with new token :", response.data.updatedAccessToken)
 						this.setSession(response.data.updatedAccessToken);
 						resolve(response.data.user);
 					} else {
@@ -139,14 +139,14 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	isAuthTokenValid = access_token => {
-		console.log("Started isAuthTokenValid...")
+		//console.log("Started isAuthTokenValid...")
 		if (!access_token) {
 			return false;
 		}
 		const decoded = jwtDecode(access_token);
-		console.log("Decoded.exp", decoded.exp)
+		//console.log("Decoded.exp", decoded.exp)
 		const currentTime = Date.now() / 1000;
-		console.log("currentTime", currentTime)
+		//console.log("currentTime", currentTime)
 
 		if (decoded.exp < currentTime) {
 			console.warn('access token expired');

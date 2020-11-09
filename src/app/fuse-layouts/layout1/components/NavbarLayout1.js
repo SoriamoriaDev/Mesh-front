@@ -4,10 +4,10 @@ import Hidden from '@material-ui/core/Hidden';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Logo from 'app/fuse-layouts/shared-components/Logo';
-import NavbarFoldedToggleButton from 'app/fuse-layouts/shared-components/NavbarFoldedToggleButton';
+//import NavbarFoldedToggleButton from 'app/fuse-layouts/shared-components/NavbarFoldedToggleButton';
 import NavbarMobileToggleButton from 'app/fuse-layouts/shared-components/NavbarMobileToggleButton';
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';
-import UserNavbarHeader from 'app/fuse-layouts/shared-components/UserNavbarHeader';
+//import UserNavbarHeader from 'app/fuse-layouts/shared-components/UserNavbarHeader';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -40,9 +40,9 @@ function NavbarLayout1(props) {
 					<Logo />
 				</div>
 
-				<Hidden mdDown>
+				{/* <Hidden mdDown>
 					<NavbarFoldedToggleButton className="w-40 h-40 p-0" />
-				</Hidden>
+				</Hidden> */}
 
 				<Hidden lgUp>
 					<NavbarMobileToggleButton className="w-40 h-40 p-0">
@@ -52,7 +52,7 @@ function NavbarLayout1(props) {
 			</AppBar>
 
 			<FuseScrollbars className={clsx(classes.content)} option={{ suppressScrollX: true }}>
-				<UserNavbarHeader />
+				{/* <UserNavbarHeader /> */}
 
 				<Navigation layout="vertical" />
 			</FuseScrollbars>

@@ -38,8 +38,8 @@ function UserMenu(props) {
 					</Typography>
 				</div>
 
-				{user.images ? (
-					<Avatar className="md:mx-4" alt="user photo" src={user.images} />
+				{user.data.photoURL ? (
+					<Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
 				) : (
 					<Avatar className="md:mx-4">{user.f_name}</Avatar>
 				)}
