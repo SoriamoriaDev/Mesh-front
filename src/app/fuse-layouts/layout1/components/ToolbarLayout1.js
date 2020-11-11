@@ -26,7 +26,7 @@ function ToolbarLayout1(props) {
 				id="fuse-toolbar"
 				className={clsx(classes.root, 'flex relative z-10')}
 				color="default"
-				style={{ backgroundColor: toolbarTheme.palette.background.paper }}
+				style={{ backgroundColor: toolbarTheme.palette.background.paper }}   // SIGNET
 				elevation={2}
 			>
 				<Toolbar className="p-0 min-h-48 md:min-h-64">

@@ -1,7 +1,31 @@
-import { fuseDark, skyBlue } from '@fuse/colors';
+import { fuseDark, skyBlue} from '@fuse/colors';
 import { lightBlue, red } from '@material-ui/core/colors';
 
 const themesConfig = {
+	mesh01: {
+		palette: {
+			type: 'dark',
+			primary: {
+				light: '#C2C2C3',
+				main: '#070825',
+				dark: '#131417'
+			},
+			secondary: {
+				light: '#B8E1D9',
+				main: '#55e7b5',
+				dark: '#056D4F',
+				contrastText: '#FFFFFF'
+			},
+			background: {
+				paper: '#262526',
+				default: '#1E1D1E'
+			},
+			error: red
+		},
+		status: {
+			danger: 'orange'
+		}
+	},
 	default: {
 		palette: {
 			type: 'light',

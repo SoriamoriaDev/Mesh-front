@@ -62,6 +62,16 @@ function Login() {
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
 								<div className="flex items-center mb-32">
+									<div>
+										<Typography className="text-24 font-800 logo-text" color="inherit">
+											Please login
+										</Typography>
+									</div>
+								</div>
+							</FuseAnimate>
+
+							{/* <FuseAnimate delay={300}>
+								<div className="flex items-center mb-32">
 									<img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
 									<div className="border-l-1 mr-4 w-1 h-40" />
 									<div>
@@ -76,7 +86,7 @@ function Login() {
 										</Typography>
 									</div>
 								</div>
-							</FuseAnimate>
+							</FuseAnimate> */}
 
 							{/* <Tabs
 								value={selectedTab}
@@ -133,19 +143,40 @@ function Login() {
 					<div
 						className={clsx(classes.rightSection, 'hidden md:flex flex-1 items-center justify-center p-64')}
 					>
-						<div className="max-w-320">
-							<FuseAnimate animation="transition.slideUpIn" delay={400}>
-								<Typography variant="h3" color="inherit" className="font-800 leading-tight">
-									Welcome to <br />
-									MESH Football !
-								</Typography>
-							</FuseAnimate>
+						<div className="max-w-310">
+
+								<div className="flex items-center mb-32">
+
+									<img 
+										style={{ maxWidth: '100px',width: '100%', display: "inline-block"}} 
+										src="assets/images/logos/Mesh_logo.png" 
+										alt="logo" />
+
+
+									<div className="border-l-1 mr-4 w-1 h-40" style={{ color: 'white'}}/>
+
+									<div>
+										<Typography className="text-24 font-800 logo-text" color="inherit">
+											MESH
+										</Typography>
+
+										<Typography className="text-24 font-800 logo-text" color="inherit">
+											FOOTBALL
+										</Typography>
+									</div>
+									
+								</div>
+
 
 							<FuseAnimate delay={500}>
+								
 								<Typography variant="subtitle1" color="inherit" className="mt-32">
-									This is where you football team come to life.
+									This is where your football<br></br>team come to life.
 								</Typography>
+
+							
 							</FuseAnimate>
+
 						</div>
 					</div>
 				</div>

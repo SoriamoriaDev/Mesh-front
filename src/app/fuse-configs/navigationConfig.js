@@ -9,9 +9,9 @@ i18next.addResourceBundle('es', 'navigation', es);
 
 const navigationConfig = [  // SIGNET
 	{
-		id: 'applications',
+		id: 'admin',
 		title: 'Applications',
-		translate: 'APPLICATIONS',
+		translate: 'ADMIN',
 		type: 'group',
 		icon: 'apps',
 		children: [

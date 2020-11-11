@@ -6,7 +6,7 @@ const settingsConfig = {
 	customScrollbars: true,
 	animations: true,
 	direction: 'ltr', // rtl, ltr
-	theme: {
+	theme: {  // SIGNET
 		main: 'default',
 		navbar: 'mainThemeDark',
 		toolbar: 'mainThemeLight',

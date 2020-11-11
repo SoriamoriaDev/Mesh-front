@@ -48,6 +48,7 @@ function Marker({ text }) {
 
 // Add a marker with Google Maps API
 function renderMarkers(map, maps){
+	// eslint-disable-next-line 
 	let marker = new maps.Marker({
 	  position: {lat : 43.548056, lng : 6.948830},
 	  map,
@@ -64,7 +65,17 @@ function renderMarkers(map, maps){
 	})
 }
 
-function GamesMap() {
+
+function GamesMap(data) {
+
+
+	console.log("Data received down in GamesMap", data)
+
+
+
+
+
+
 	return (
 		<div className="w-full">
 			<Typography className="h2 mb-16">Games around you</Typography>

@@ -7,7 +7,7 @@ import qs from 'qs';
 /**
  * SETTINGS DEFAULTS
  */
-export const defaultSettings = {
+export const defaultSettings = { 
 	customScrollbars: true,
 	animations: true,
 	direction: 'ltr',

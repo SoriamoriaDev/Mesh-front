@@ -1,5 +1,5 @@
 const locale = {
-	APPLICATIONS: 'Applicaçiones',
+	ADMIN: 'Admin',
 	EXAMPLE: 'Exemplo'
 };
 

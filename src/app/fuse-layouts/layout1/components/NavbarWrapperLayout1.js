@@ -146,7 +146,7 @@ function NavbarWrapperLayout1(props) {
 							)}
 							onMouseEnter={() => foldedAndClosed && dispatch(navbarOpenFolded())}
 							onMouseLeave={() => foldedAndOpened && dispatch(navbarCloseFolded())}
-							style={{ backgroundColor: navbarTheme.palette.background.default }}
+							style={{ backgroundColor: navbarTheme.palette.primary.main }}  // SIGNET
 						>
 							<NavbarLayout1 className={classes.navbarContent} />
 						</div>
