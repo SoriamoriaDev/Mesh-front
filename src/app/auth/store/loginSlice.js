@@ -5,7 +5,7 @@ import jwtService from 'app/services/jwtService';
 import { setUserData } from './userSlice';
 
 
-/************************* 3) Reducer handling auth inputs with JWT    *********************/
+/************************* 3) Reducer handling auth inputs with JWT    ********************  SIGNET */ 
 
 export const submitLogin = ({ email, password }) => async dispatch => {
 	return jwtService

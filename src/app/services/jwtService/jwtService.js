@@ -27,7 +27,7 @@ class JwtService extends FuseUtils.EventEmitter {
 		);
 	};
 
-	handleAuthentication = () => {
+	handleAuthentication = () => {   // SIGNET
 
 		//console.log("Started handleAuthentication...")
 		const access_token = this.getAccessToken();
@@ -61,10 +61,10 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	/************************* 4) Actions connecting the API server to retrieve JWT    *********************/
+	/************************* 4) Actions connecting the API server to retrieve JWT     *********************/
 
 
-	signInWithEmailAndPassword = (email, password) => {
+	signInWithEmailAndPassword = (email, password) => {  //SIGNET
 		return new Promise((resolve, reject) => {
 			
 			axios

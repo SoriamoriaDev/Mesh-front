@@ -26,7 +26,7 @@ class Auth extends Component {
 	}
 	/************************* 5) This is the service for Authentification after login or coming from other site  *********************/
 	// 
-	jwtCheck = () =>
+	jwtCheck = () =>  // SIGNET
 		new Promise(resolve => {
 			jwtService.on('onAutoLogin', () => {
 

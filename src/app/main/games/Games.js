@@ -2,15 +2,17 @@ import FusePageSimple from '@fuse/core/FusePageSimple';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import SimpleExample from './google-map-react/examples/simple';
+import GamesMap from './google-map-react/gamesmap';
 
 const useStyles = makeStyles(theme => ({
 	layoutRoot: {}
 }));
 
-function Welcome_mapPage(props) {
+function GamesPage(props) {
 	const classes = useStyles(props);
-	const { t } = useTranslation('welcome_mapPage');
+	const { t } = useTranslation('GamesPage');
+
+	console.log("props in Welcome Map", props)
 
 	return (
 		<FusePageSimple
@@ -26,11 +28,11 @@ function Welcome_mapPage(props) {
 			
 			content={
 				<div className="p-24">
-					<SimpleExample/>
+					<GamesMap/>
 				</div>
 			}
 		/>
 	);
 }
 
-export default Welcome_mapPage;
+export default GamesPage;

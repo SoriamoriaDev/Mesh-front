@@ -42,7 +42,7 @@ class FuseAuthorization extends Component {
 		};
 	}
 
-	redirectRoute() {
+	redirectRoute() { //SIGNET
 		const { location, userRole, history } = this.props;
 		const { pathname, state } = location;
 		const redirectUrl = state && state.redirectUrl ? state.redirectUrl : '/';
