@@ -8,34 +8,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import React, { useEffect } from 'react';
 import reducer from './store';
-import _ from '@lodash';
+//import _ from '@lodash';
 
 const useStyles = makeStyles(theme => ({
 	layoutRoot: {}
 }));
 
 function GamesPage(props) {
-	
+
+
+	//console.log("props in GamesPage", props)
+
 	const classes = useStyles(props);
 
 	// eslint-disable-next-line 
 	const { t } = useTranslation('GamesPage');
-
-	console.log("props in Welcome Map", props)
 
 	const dispatch = useDispatch();
 	const games = useSelector(selectGamesEntities); 
 
 	useEffect(() => {
 
-		console.log("useEffect")
+		//console.log("useEffect in GamesPage")
 
 		dispatch(getGames());
+
 	}, [dispatch]);
 
-	if (_.isEmpty(games)) {
-		return null;
-	}	
+	// if (_.isEmpty(games)) {   
+	// 	return null;
+	// }	
 
 	return (
 		<FusePageSimple
@@ -51,14 +53,11 @@ function GamesPage(props) {
 			
 			content={
 				<div className="p-24">
-					<GamesMap data={games} />
+					<GamesMap data={games} props={props}/>
 				</div>
 			}
 		/>
 	);
 }
 
-export default withReducer('gamesPage', reducer)(GamesPage);
-
-//export default GamesPage;
-//export default withReducer('analyticsDashboardApp', reducer)(AnalyticsDashboardApp);
+export default withReducer('games', reducer)(GamesPage);

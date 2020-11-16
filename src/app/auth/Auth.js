@@ -30,7 +30,7 @@ class Auth extends Component {
 		new Promise(resolve => {
 			jwtService.on('onAutoLogin', () => {
 
-				console.log("onAutoLogin")
+				//console.log("onAutoLogin")
 
 				this.props.showMessage({ message: 'Logging in with JWT' });
 

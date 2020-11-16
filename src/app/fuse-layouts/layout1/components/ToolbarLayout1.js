@@ -5,10 +5,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import NavbarMobileToggleButton from 'app/fuse-layouts/shared-components/NavbarMobileToggleButton';
 import clsx from 'clsx';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
+import withReducer from 'app/store/withReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import reducer from 'app/fuse-layouts/shared-components/quickPanel/store';
+import { sendGPSLocation } from './store/GPSlocationSlice';
+
 
 const useStyles = makeStyles(theme => ({
 	root: {}
@@ -19,6 +23,40 @@ function ToolbarLayout1(props) {
 	const toolbarTheme = useSelector(selectToolbarTheme);
 
 	const classes = useStyles(props);
+
+	const dispatch = useDispatch();
+
+
+
+	// ************** GET YOUR CURRENT GPS POSITION ********************  // SIGNET
+	var crd;
+
+	var options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	};
+
+	function success(pos) {
+
+		//console.log("pos", pos)
+
+		crd = pos.coords;
+
+		const result = {lat : crd.latitude, lng : crd.longitude}
+		
+		dispatch(sendGPSLocation(result)); // <--- IMPORTANT
+
+	}
+
+	function error(err) {
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
+
+	navigator.geolocation.getCurrentPosition(success, error, options);
+
+	// *****************************************************************
+
 
 	return (
 		<ThemeProvider theme={toolbarTheme}>
@@ -56,3 +94,4 @@ function ToolbarLayout1(props) {
 }
 
 export default React.memo(ToolbarLayout1);
+//export default withReducer('GPSlocation', reducer)(ToolbarLayout1);
