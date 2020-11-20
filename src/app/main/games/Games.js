@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 function GamesPage(props) {
 
 
-	//console.log("props in GamesPage", props)
+	console.log("props in GamesPage", props)
 
 	const classes = useStyles(props);
 

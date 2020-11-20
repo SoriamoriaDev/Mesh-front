@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Edit your profile</nb-card-header>
+      <nb-card-body>
+
+      <form #profileForm="ngForm" (ngSubmit)="save(currentUser)">
+
+
+        <div class="form-group">
+        <label for="first name" class="label">Profile picture</label>
+        <input type="file"
+          nbInput fullWidth
+          accept="image/*"
+          name="currentUser.images"
+          placeholder="Your profile picture"
+          (ngModel)="currentUser.images">
+        </div>
+
+
+        <div class="form-group">
+        <label for="first name" class="label">First name</label>
+        <input type="text"
+          nbInput fullWidth
+          name="f_name"
+          placeholder="First name"
+          [(ngModel)]="currentUser.f_name" >
+        </div>
+
+        <div class="form-group">
+        <label for="first name" class="label">Last name</label>
+        <input type="text"
+          nbInput fullWidth
+          name="l_name"
+          placeholder="Last name"
+          [(ngModel)]="currentUser.l_name" >
+        </div>
+
+        <div class="form-group">
+          <label for="first name" class="label">Your DOB</label>
+          <input type="date"
+            nbInput fullWidth
+            name="currentUser.birthday_date"
+            placeholder="Birthday"
+            value="{{currentUser.birthday_date}}"
+            (ngModelChange)="currentUser.birthday_date = $event">
+          </div>
+
+        <div class="form-group">
+        <label for="first name" class="label">Nationality</label>
+        <input type="text"
+          nbInput fullWidth
+          name="currentUser.country"
+          placeholder="Nationality"
+          [(ngModel)]="currentUser.country">
+        </div>
+
+        <div class="form-group">
+        <label for="first name" class="label">Your height in cm</label>
+        <input type="number"
+          nbInput fullWidth
+          name="currentUser.height"
+          placeholder="Your height in cm"
+          min="100" max="230"
+          [(ngModel)]="currentUser.height">
+        </div>
+
+        <div class="form-group">
+        <label for="first name" class="label">Your weight in kg</label>
+        <input type="number"
+          nbInput fullWidth
+          name="currentUser.weight"
+          placeholder="Your weight in kg"
+          min="30" max="300"
+          [(ngModel)]="currentUser.weight">
+        </div>
+
+        <div class="form-group">
+        <label for="first name" class="label">Position on the field</label>
+        <input type="text"
+          nbInput fullWidth
+          name="currentUser.position"
+          placeholder="Your position on the pitch"
+          [(ngModel)]="currentUser.position">
+        </div>
+
+        <div class="form-group">
+          <label class="label">Favorite foot</label>
+          <div>
+            <nb-radio-group name="currentUser.main_foot" [(ngModel)]="currentUser.main_foot">
+              <nb-radio value="Right footed">Right footed</nb-radio>
+              <nb-radio value="Left footed">Left footed</nb-radio>
+              <nb-radio value="Ambidextrous">Ambidextrous</nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="!profileForm.form.valid" nbButton status="success">Save</button>
+
+      </form>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-lg-6">
+
+    <nb-card>
+      <nb-card-header>Profile</nb-card-header>
+
+      <nb-card-body>
+
+        <img src="../../assets/images/max.jpg"
+        style="border-radius: 50%;
+        border-color: white;
+        object-fit: cover;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;"
+        width="150"
+        height="150">
+
+        <h3 style="text-align: center;">{{currentUser.f_name}} {{currentUser.l_name}}</h3>
+
+      </nb-card-body>
+
+    <div style="background: rgba(255, 255, 255, 0.1)">
+      <p style="text-align: center; color: white; font-size: large;">
+        {{age}} years  |  {{currentUser.height}} cm  |  {{currentUser.weight}} kg  |  {{currentUser.main_foot}}</p>
+    </div>
+
+      <nb-card-body>
+
+      </nb-card-body>
+
+    </nb-card>
+
+
+  </div>
+</div>

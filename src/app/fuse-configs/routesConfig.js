@@ -7,8 +7,10 @@ import LoginConfig from 'app/main/login/LoginConfig';
 import LogoutConfig from 'app/main/logout/LogoutConfig';
 import RegisterConfig from 'app/main/register/RegisterConfig';
 import ComingsoonConfig from 'app/main/comingsoon/ComingsoonConfig';
+import MyprofileConfig from 'app/main/myprofile/MyprofileConfig';
 
-const routeConfigs = [ExampleConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig];
+
+const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig];
 
 const routes = [
 
@@ -32,6 +34,10 @@ const routes = [
 	{
 		path: '/comingsoon',
 		component: () => <Redirect to="/comingsoon" />
+	},
+	{
+		path: '/myprofile',
+		component: () => <Redirect to="/myprofile" />
 	}
 ];
 

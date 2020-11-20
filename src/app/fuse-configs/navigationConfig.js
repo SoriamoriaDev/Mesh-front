@@ -46,7 +46,7 @@ const navigationConfig = [  // SIGNET
 				translate: 'My profile',
 				type: 'item',
 				icon: 'perm_identity',
-				url: '/comingsoon'
+				url: '/myprofile'
 			},
 			{
 				id: 'transfer',
