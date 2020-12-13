@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import { State } from 'velocity-animate';
+//import { State } from 'velocity-animate';
 
 
 export const sendGPSLocation = createAsyncThunk('GPSlocation/location/sendLocation', async (data) => {   // SIGNET

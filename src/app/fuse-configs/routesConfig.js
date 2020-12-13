@@ -8,9 +8,10 @@ import LogoutConfig from 'app/main/logout/LogoutConfig';
 import RegisterConfig from 'app/main/register/RegisterConfig';
 import ComingsoonConfig from 'app/main/comingsoon/ComingsoonConfig';
 import MyprofileConfig from 'app/main/myprofile/MyprofileConfig';
+import PlayersAppConfig from 'app/main/players/PlayersAppConfig';
 
 
-const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig];
+const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig];
 
 const routes = [
 
@@ -38,6 +39,10 @@ const routes = [
 	{
 		path: '/myprofile',
 		component: () => <Redirect to="/myprofile" />
+	},
+	{
+		path: '/players',
+		component: () => <Redirect to="/players" />
 	}
 ];
 

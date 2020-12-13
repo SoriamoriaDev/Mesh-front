@@ -2,12 +2,26 @@ import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/too
 import axios from 'axios';
 
 export const getProfile = createAsyncThunk('myprofile/getProfile', async (userid) => {  
-	const response = await axios.get(`${process.env.REACT_APP_API_URL}/event/all`); 
+	const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/${userid}`); 
 	const data = await response.data;
 
-    console.log("Get profile : Data back from back end", data)
+	//console.log("Get profile : Data back from back end", data)
+	
 	return data;
 });
+
+
+export const updateMyProfile = createAsyncThunk('myprofile/updateProfile', async (profile, { dispatch, getState }) => {
+		const response = await axios.put(`${process.env.REACT_APP_API_URL}/users/edit/${profile._id}`, profile);
+		const data = await response.data;
+
+		//console.log("Update profile : Data back from back end", data)
+
+		dispatch(getProfile(profile._id));
+
+		return data;
+	}
+);
 
 const profileAdapter = createEntityAdapter({});
 

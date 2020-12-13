@@ -8,9 +8,7 @@ import React from 'react';
 import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
-import withReducer from 'app/store/withReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import reducer from 'app/fuse-layouts/shared-components/quickPanel/store';
 import { sendGPSLocation } from './store/GPSlocationSlice';
 
 
@@ -20,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 function ToolbarLayout1(props) {
 
-	console.log("Props in Toolbar :", props)
+	//console.log("Props in Toolbar :", props)
 	const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
 	const toolbarTheme = useSelector(selectToolbarTheme);
 

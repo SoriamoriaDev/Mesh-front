@@ -38,7 +38,7 @@ const navigationConfig = [  // SIGNET
 				translate: 'Players',
 				type: 'item',
 				icon: 'people',
-				url: '/comingsoon'
+				url: '/players'
 			},
 			{
 				id: 'your-profile',

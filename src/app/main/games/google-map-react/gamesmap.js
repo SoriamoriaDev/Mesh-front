@@ -7,8 +7,7 @@ import GoogleMap from 'google-map-react';
 import React, { useState, useEffect } from 'react';
 import { meshMapStyle } from 'app/mesh-files/meshStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectGPSlocationEntities, sendGPSLocation } from 'app/fuse-layouts/layout1/components/store/GPSlocationSlice';
-import _ from '@lodash';
+import { selectGPSlocationEntities } from 'app/fuse-layouts/layout1/components/store/GPSlocationSlice';
 
 
 
@@ -26,7 +25,9 @@ function Marker({ text }) {
 function GamesMap(data) {
 	const dispatch = useDispatch();
 
+	// eslint-disable-next-line 
 	const [StandardPosition, setStandardPosition] = useState({lat : 43.269909, lng : 5.395969}) 
+	// eslint-disable-next-line 
 	const [isLocated, setIsLocated] = useState(false)
 	
 	let games = data.data
