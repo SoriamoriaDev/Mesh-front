@@ -16,7 +16,7 @@ function ContactsHeader(props) {
 	//const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
 	const mainTheme = useSelector(selectMainTheme);
 
-	console.log("ContactsHeader")
+	//console.log("ContactsHeader")
 
 	return (
 		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
@@ -38,13 +38,13 @@ function ContactsHeader(props) {
 					</FuseAnimate>
 					<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 						<Typography variant="h6" className="mx-12 hidden sm:flex">
-							Contacts
+							Players
 						</Typography>
 					</FuseAnimate>
 				</div>
 			</div>
 
-			<div className="flex flex-1 items-center justify-center px-8 sm:px-12">
+			{/* <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
 				<ThemeProvider theme={mainTheme}>
 					<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 						<Paper
@@ -53,7 +53,7 @@ function ContactsHeader(props) {
 						>
 							<Icon color="action">search</Icon>
 
-							{/* <Input
+							<Input
 								placeholder="Search for anything"
 								className="flex flex-1 px-16"
 								disableUnderline
@@ -63,11 +63,11 @@ function ContactsHeader(props) {
 									'aria-label': 'Search'
 								}}
 								onChange={ev => dispatch(setContactsSearchText(ev))}
-							/> */}
+							/>
 						</Paper>
 					</FuseAnimate>
 				</ThemeProvider>
-			</div>
+			</div> */}
 		</div>
 	);
 }

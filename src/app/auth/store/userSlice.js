@@ -75,7 +75,7 @@ export const setUserData = user => async (dispatch, getState) => {
 
 	history.location.state = {
 		//redirectUrl: user.redirectUrl // for example 'apps/academy'
-		redirectUrl: '/games' // SIGNET 
+		redirectUrl: '/myprofile' // SIGNET 
 	};
 
 	/*

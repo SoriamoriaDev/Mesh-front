@@ -8,18 +8,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
 import ContactsTable from './ContactsTable';
-import { openEditContactDialog, removeContact, toggleStarredContact, selectContacts } from './store/contactsSlice';
+import { openEditContactDialog, removeContact, toggleStarredContact, selectContacts, selectPlayersEntities  } from './store/contactsSlice';
+import _ from '@lodash';
+import dayjs from 'dayjs'
 
 function ContactsList(props) {
 
-	console.log("ContactsList")
-	
 	const dispatch = useDispatch();
-	const contacts = useSelector(selectContacts);
-	const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
-	const user = useSelector(({ contactsApp }) => contactsApp.user);
+	let contacts = []
+	contacts = useSelector(selectPlayersEntities);
 
-	const [filteredData, setFilteredData] = useState(null);
+	//const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
+	//const user = useSelector(({ contactsApp }) => contactsApp.user);
+	
+	const searchText = ""
+	const user = ""
+
+	const [filteredData, setFilteredData] = useState([]);
+
 
 	const columns = React.useMemo(
 		() => [
@@ -33,7 +39,8 @@ function ContactsList(props) {
 				},
 				accessor: 'avatar',
 				Cell: ({ row }) => {
-					return <Avatar className="mx-8" alt={row.original.name} src={row.original.avatar} />;
+					//return <Avatar className="mx-8" alt={row.original.name} src={row.original.avatar} />;
+					return <Avatar className="mx-8" alt={row.original.name} src={row.original.data.photoURL} />;
 				},
 				className: 'justify-center',
 				width: 64,
@@ -41,34 +48,34 @@ function ContactsList(props) {
 			},
 			{
 				Header: 'First Name',
-				accessor: 'name',
+				accessor: 'f_name',
 				className: 'font-bold',
 				sortable: true
 			},
 			{
 				Header: 'Last Name',
-				accessor: 'lastName',
+				accessor: 'l_name',
 				className: 'font-bold',
 				sortable: true
 			},
 			{
-				Header: 'Company',
-				accessor: 'company',
+				Header: 'Gender',
+				accessor: 'gender',
 				sortable: true
 			},
 			{
-				Header: 'Job Title',
-				accessor: 'jobTitle',
+				Header: 'City',
+				accessor: 'current_town',
 				sortable: true
 			},
 			{
-				Header: 'Email',
-				accessor: 'email',
+				Header: 'Country',
+				accessor: 'country',
 				sortable: true
 			},
 			{
-				Header: 'Phone',
-				accessor: 'phone',
+				Header: 'Age',
+				accessor: 'age',
 				sortable: true
 			},
 			{
@@ -105,7 +112,11 @@ function ContactsList(props) {
 	);
 
 	useEffect(() => {
+
 		function getFilteredArray(entities, _searchText) {
+
+			//console.log("Entities : ", entities)
+
 			if (_searchText.length === 0) {
 				return contacts;
 			}
@@ -113,11 +124,22 @@ function ContactsList(props) {
 		}
 
 		if (contacts) {
+
+			//console.log("getFilteredArray(contacts, searchText)", getFilteredArray(contacts, searchText))
+
 			setFilteredData(getFilteredArray(contacts, searchText));
 		}
 	}, [contacts, searchText]);
 
+
+	// Prevent error when contacts data is not loaded yet
+	if (_.isEmpty(contacts)) {   
+		console.log("Contacts is empty")
+		return null;
+	}
+
 	if (!filteredData) {
+		console.log("No filteredData")
 		return null;
 	}
 
@@ -125,17 +147,31 @@ function ContactsList(props) {
 		return (
 			<div className="flex flex-1 items-center justify-center h-full">
 				<Typography color="textSecondary" variant="h5">
-					There are no contacts!
+					There are no players !
 				</Typography>
 			</div>
 		);
 	}
 
+	let contactsModified = ""
+
+	if(contacts.length > 0){
+
+		console.log(contacts)
+
+		contactsModified = contacts.map(obj=> ({ ...obj, age: dayjs().diff(obj.dob, 'years') }))
+
+	}
+
+	console.log("contacts modified", contactsModified)
+
+
 	return (
+		
 		<FuseAnimate animation="transition.slideUpIn" delay={300}>
 			<ContactsTable
 				columns={columns}
-				data={filteredData}
+				data={contactsModified}
 				onRowClick={(ev, row) => {
 					if (row) {
 						dispatch(openEditContactDialog(row.original));
@@ -143,6 +179,8 @@ function ContactsList(props) {
 				}}
 			/>
 		</FuseAnimate>
+		
+		//<div>ContactsTable here</div>
 	);
 }
 

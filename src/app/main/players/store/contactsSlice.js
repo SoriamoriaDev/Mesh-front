@@ -12,6 +12,20 @@ export const getContacts = createAsyncThunk('contactsApp/contacts/getContacts', 
 	return { data, routeParams };
 });
 
+export const getPlayers = createAsyncThunk('players/getPlayers', async (routeParams, { getState }) => {
+	routeParams = routeParams || getState().contactsApp.contacts.routeParams;
+
+	//console.log("routeParams in slice", routeParams)
+
+	const response = await axios.get((`${process.env.REACT_APP_API_URL}/users`));
+
+	const data = await response.data.data;
+
+	//console.log("Data back from DB : ", data)
+
+	return { data, routeParams };
+});
+
 export const addContact = createAsyncThunk(
 	'contactsApp/contacts/addContact',
 	async (contact, { dispatch, getState }) => {
@@ -117,13 +131,16 @@ export const setContactsUnstarred = createAsyncThunk(
 
 const contactsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectContacts, selectById: selectContactsById } = contactsAdapter.getSelectors(
-	state => state.contactsApp.contacts
+//export const { selectAll: selectContacts, selectById: selectContactsById } = contactsAdapter.getSelectors(
+export const { selectEntities: selectPlayersEntities, selectById: selectContactsById } = contactsAdapter.getSelectors(
+	//state => state.contactsApp.contacts
+	state => state.playersApp.contacts
 );
 
 const contactsSlice = createSlice({
 	name: 'contactsApp/contacts',
 	initialState: contactsAdapter.getInitialState({
+		//players: [],
 		searchText: '',
 		routeParams: {},
 		contactDialog: {
@@ -186,6 +203,10 @@ const contactsSlice = createSlice({
 			contactsAdapter.setAll(state, data);
 			state.routeParams = routeParams;
 			state.searchText = '';
+		},
+		[getPlayers.fulfilled]: (state, action) => {
+			state.entities = action.payload.data;
+			
 		}
 	}
 });

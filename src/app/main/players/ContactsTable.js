@@ -29,6 +29,11 @@ const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref)
 });
 
 const EnhancedTable = ({ columns, data, onRowClick }) => {
+
+	console.log("ContactsTable")
+	console.log("Data in ContactsTable", data)
+
+
 	const {
 		getTableProps,
 		headerGroups,
@@ -90,9 +95,11 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
 
 	// Render the UI for your table
 	return (
+
 		<div className="flex flex-col min-h-full sm:border-1 sm:rounded-16 overflow-hidden">
 			<TableContainer className="flex flex-1">
 				<Table {...getTableProps()} stickyHeader>
+
 					<TableHead>
 						{headerGroups.map(headerGroup => (
 							<TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -116,6 +123,7 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
 							</TableRow>
 						))}
 					</TableHead>
+
 					<TableBody>
 						{page.map((row, i) => {
 							prepareRow(row);
@@ -139,8 +147,11 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
 							);
 						})}
 					</TableBody>
+					
 				</Table>
+
 			</TableContainer>
+
 			<TablePagination
 				component="div"
 				classes={{
