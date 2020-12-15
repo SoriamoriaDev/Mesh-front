@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.0499167a.chunk.css",
-    "main.js": "/static/js/main.b01db663.chunk.js",
+    "main.js": "/static/js/main.1ea87117.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.056c5d9e.js",
     "static/css/2.d4b23571.chunk.css": "/static/css/2.d4b23571.chunk.css",
-    "static/js/2.35b5e067.chunk.js": "/static/js/2.35b5e067.chunk.js",
+    "static/js/2.b6a5feaa.chunk.js": "/static/js/2.b6a5feaa.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.05b15547b5f9ba892e79117a7fa69b3e.js": "/precache-manifest.05b15547b5f9ba892e79117a7fa69b3e.js",
+    "precache-manifest.f4a5c36c32be263a1b0673e7b6fcc274.js": "/precache-manifest.f4a5c36c32be263a1b0673e7b6fcc274.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.35b5e067.chunk.js.LICENSE.txt": "/static/js/2.35b5e067.chunk.js.LICENSE.txt",
+    "static/js/2.b6a5feaa.chunk.js.LICENSE.txt": "/static/js/2.b6a5feaa.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/muli-latin-900italic.fb9b3ba4.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.056c5d9e.js",
     "static/css/2.d4b23571.chunk.css",
-    "static/js/2.35b5e067.chunk.js",
+    "static/js/2.b6a5feaa.chunk.js",
     "static/css/main.0499167a.chunk.css",
-    "static/js/main.b01db663.chunk.js"
+    "static/js/main.1ea87117.chunk.js"
   ]
 }
