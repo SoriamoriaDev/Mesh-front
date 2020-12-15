@@ -28,6 +28,7 @@ function EditProfile(data) {
 	const [weight, setWeight] = useState("")
 	const [main_foot, setMain_foot] = useState("")
 	const [photoURL, setPhotoURL] = useState("")
+	const [country, setCountry] = useState("")
 
 	const [openDialog, setOpenDialog] = useState(false);
 	const dispatch = useDispatch(); 
@@ -46,6 +47,7 @@ function EditProfile(data) {
 		setWeight(data.currentUser.weight);
 		setMain_foot(data.currentUser.main_foot);
 		setPhotoURL(data.currentUser.data.photoURL);
+		setCountry(data.currentUser.country);
 
 	}, [data])
 
@@ -77,7 +79,8 @@ function EditProfile(data) {
 			height: height,
 			weight: weight,
 			main_foot: main_foot,
-			data: {photoURL: photoURL}
+			data: {photoURL: photoURL},
+			country: country
 		}
 
 		dispatch(updateMyProfile(profile));
@@ -169,18 +172,6 @@ function EditProfile(data) {
 
 						<TextField
 							className="mt-8 mb-16"
-							label="City"
-							id="bcc"
-							name="bcc"
-							value={city}
-							onChange={e => setCity(e.target.value)}
-							variant="outlined"
-							fullWidth
-							//required
-						/>
-
-						<TextField
-							className="mt-8 mb-16"
 							label="Date of birth"
 							id="dob"
 							type="date"
@@ -251,6 +242,29 @@ function EditProfile(data) {
 							variant="outlined"
 							fullWidth
 							//required
+						/>
+
+						<TextField
+							className="mt-8 mb-16"
+							label="City"
+							id="bcc"
+							name="bcc"
+							value={city}
+							onChange={e => setCity(e.target.value)}
+							variant="outlined"
+							fullWidth
+							//required
+						/>
+
+						<TextField
+							className="mt-8 mb-16"
+							label="Country"
+							id="bcc"
+							name="bcc"
+							value={country}
+							onChange={e => setCountry(e.target.value)}
+							variant="outlined"
+							fullWidth
 						/>
 
 

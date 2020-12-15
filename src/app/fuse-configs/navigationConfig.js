@@ -15,7 +15,23 @@ const navigationConfig = [  // SIGNET
 		type: 'group',
 		icon: 'apps',
 		children: [
-			
+
+			{
+				id: 'myprofile',
+				title: 'Example',
+				translate: 'My profile',
+				type: 'item',
+				icon: 'perm_identity',
+				url: '/myprofile'
+			},
+			{
+				id: 'players',
+				title: 'Example',
+				translate: 'Players',
+				type: 'item',
+				icon: 'people',
+				url: '/players'
+			},
 			{
 				id: 'games',
 				title: 'Welcome Map',
@@ -31,22 +47,6 @@ const navigationConfig = [  // SIGNET
 				type: 'item',
 				icon: 'security',
 				url: '/comingsoon'
-			},
-			{
-				id: 'players',
-				title: 'Example',
-				translate: 'Players',
-				type: 'item',
-				icon: 'people',
-				url: '/players'
-			},
-			{
-				id: 'your-profile',
-				title: 'Example',
-				translate: 'My profile',
-				type: 'item',
-				icon: 'perm_identity',
-				url: '/myprofile'
 			},
 			{
 				id: 'transfer',
@@ -71,15 +71,7 @@ const navigationConfig = [  // SIGNET
 				type: 'item',
 				icon: 'chat',
 				url: '/comingsoon'
-			},
-			// {
-			// 	id: 'example-component',
-			// 	title: 'Example',
-			// 	translate: 'EXAMPLE',
-			// 	type: 'item',
-			// 	icon: 'whatshot',
-			// 	url: '/example'
-			// }
+			}
 		]
 	}
 ];

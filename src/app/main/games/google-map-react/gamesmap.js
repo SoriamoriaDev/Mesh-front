@@ -23,10 +23,11 @@ function Marker({ text }) {
 
 
 function GamesMap(data) {
+	
 	const dispatch = useDispatch();
 
 	// eslint-disable-next-line 
-	const [StandardPosition, setStandardPosition] = useState({lat : 43.269909, lng : 5.395969}) 
+	const [StandardPosition, setStandardPosition] = useState({lat : 43.553524, lng : 7.001037})
 	// eslint-disable-next-line 
 	const [isLocated, setIsLocated] = useState(false)
 	
@@ -46,29 +47,29 @@ function GamesMap(data) {
 	// Add a marker with Google Maps API
 	function renderMarkers(map, maps){
 		
-		
-		for (let i = 0; i < games.length; i++) {
-			// eslint-disable-next-line 
-			let marker = new maps.Marker({
-			position: {lat : games[i].latitude, lng : games[i].longitude},
-			map,
-			title: games[i].venue_name,
-			draggable: false,
-			icon:{
-				path: "M256,0C148.48,0,61,87.48,61,195c0,42.55,13.44,82.98,38.9,116.9l144.08,194.051c0.36,0.47,0.91,0.65,1.31,1.07 c7.2,7.71,17.59,5.77,22.72-1.07C309.5,450.591,385.55,347.2,414.79,308.2c0,0,0.01-0.03,0.02-0.05l0.18-0.24 C438.55,274.81,451,235.77,451,195C451,87.48,363.52,0,256,0z M256,300.2c-57.89,0-105.2-47.31-105.2-105.2S198.11,89.8,256,89.8 S361.2,137.11,361.2,195S313.89,300.2,256,300.2z",
-				fillColor: "#55e7b5",
-				fillOpacity: 1,
-				anchor: new google.maps.Point(256, 512),
-				strokeWeight: 0,
-				scale : 0.1
-				}
-			})
+		if(games && games.length > 0){
+			for (let i = 0; i < games.length; i++) {
+				// eslint-disable-next-line 
+				let marker = new maps.Marker({
+				position: {lat : games[i].latitude, lng : games[i].longitude},
+				map,
+				title: games[i].venue_name,
+				draggable: false,
+				icon:{
+					path: "M256,0C148.48,0,61,87.48,61,195c0,42.55,13.44,82.98,38.9,116.9l144.08,194.051c0.36,0.47,0.91,0.65,1.31,1.07 c7.2,7.71,17.59,5.77,22.72-1.07C309.5,450.591,385.55,347.2,414.79,308.2c0,0,0.01-0.03,0.02-0.05l0.18-0.24 C438.55,274.81,451,235.77,451,195C451,87.48,363.52,0,256,0z M256,300.2c-57.89,0-105.2-47.31-105.2-105.2S198.11,89.8,256,89.8 S361.2,137.11,361.2,195S313.89,300.2,256,300.2z",
+					fillColor: "#55e7b5",
+					fillOpacity: 1,
+					anchor: new google.maps.Point(256, 512),
+					strokeWeight: 0,
+					scale : 0.1
+					}
+				})
+			}
 		}
 	}
 
 	// if (_.isEmpty(position)) {
 	// 	return null;
-	// 	//return {lat : 43.269909, lng : 5.395969};
 	// }
 
 	return (
