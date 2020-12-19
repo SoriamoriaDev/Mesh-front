@@ -1,5 +1,5 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+//import React from 'react';
+//import { Redirect } from 'react-router-dom';
 import PlayersApp from './PlayersApp';
 
 const PlayersAppConfig = {

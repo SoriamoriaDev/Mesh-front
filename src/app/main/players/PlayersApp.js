@@ -4,13 +4,10 @@ import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
-import ContactDialog from './ContactDialog';
 import ContactsHeader from './ContactsHeader';
 import ContactsList from './ContactsList';
-import ContactsSidebarContent from './ContactsSidebarContent';
 import reducer from './store';
 import { getPlayers } from './store/contactsSlice';
-import { getUserData } from './store/userSlice';
 
 function PlayersApp(props) {
 
@@ -51,7 +48,6 @@ function PlayersApp(props) {
 			/>
 			{/* <ContactDialog /> */}
 		</>
-		// <div>PlayersApp</div>
 	);
 }
 

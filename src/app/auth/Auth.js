@@ -21,7 +21,7 @@ class Auth extends Component {
 			// this.auth0Check(),
 			this.jwtCheck()
 		]).then(() => {
-			this.setState({ waitAuthCheck: false });
+			this.setState({ waitAuthCheck: false }); // PROBLEM TO FIX
 		});
 	}
 	/************************* 5) This is the service for Authentification after login or coming from other site  *********************/

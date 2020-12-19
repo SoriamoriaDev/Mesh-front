@@ -2,19 +2,13 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import Hidden from '@material-ui/core/Hidden';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
-import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { setContactsSearchText } from './store/contactsSlice';
+
+
 
 function ContactsHeader(props) {
-	const dispatch = useDispatch();
-	//const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
-	const mainTheme = useSelector(selectMainTheme);
+
 
 	//console.log("ContactsHeader")
 

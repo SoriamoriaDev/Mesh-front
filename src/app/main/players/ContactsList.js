@@ -8,9 +8,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
 import ContactsTable from './ContactsTable';
-import { openEditContactDialog, removeContact, toggleStarredContact, selectContacts, selectPlayersEntities  } from './store/contactsSlice';
+import { removeContact, toggleStarredContact, selectPlayersEntities  } from './store/contactsSlice';
 import _ from '@lodash';
 import dayjs from 'dayjs'
+import ProfileCard from '../myprofile/ProfileCard';
+import Dialog from '@material-ui/core/Dialog';
+
 
 function ContactsList(props) {
 
@@ -23,8 +26,16 @@ function ContactsList(props) {
 	
 	const searchText = ""
 	const user = ""
+	const [currentUser, setCurrentUser] = useState("")
 
 	const [filteredData, setFilteredData] = useState([]);
+
+	const [openDialog, setOpenDialog] = useState(false);
+
+	//console.log("contacts[0] : ", contacts[0])
+
+
+
 
 
 	const columns = React.useMemo(
@@ -131,15 +142,24 @@ function ContactsList(props) {
 		}
 	}, [contacts, searchText]);
 
+	function handleOpenDialog(id) {
+		setCurrentUser(contacts[id])
+		setOpenDialog(true);
+	}
+
+	function handleCloseDialog() {
+		setOpenDialog(false);
+	}
+
 
 	// Prevent error when contacts data is not loaded yet
 	if (_.isEmpty(contacts)) {   
-		console.log("Contacts is empty")
+		//console.log("Contacts is empty")
 		return null;
 	}
 
 	if (!filteredData) {
-		console.log("No filteredData")
+		//console.log("No filteredData")
 		return null;
 	}
 
@@ -157,30 +177,45 @@ function ContactsList(props) {
 
 	if(contacts.length > 0){
 
-		console.log(contacts)
+		//console.log("contacts : ", contacts)
 
 		contactsModified = contacts.map(obj=> ({ ...obj, age: dayjs().diff(obj.dob, 'years') }))
 
 	}
 
-	console.log("contacts modified", contactsModified)
+	//console.log("contacts modified", contactsModified)
 
 
 	return (
+		<>
+			<FuseAnimate animation="transition.slideUpIn" delay={300}>
+
+				<ContactsTable
+					columns={columns}
+					data={contactsModified}
+					onRowClick={(ev, row) => {
+						if (row) {
+							//dispatch(openEditContactDialog(row.original));
+							handleOpenDialog(row.id)
+						}
+					}}
+				/>
+
+			</FuseAnimate>
+
+
+			<Dialog
+				open={openDialog}
+				onClose={handleCloseDialog}
+			>
+				<ProfileCard margin={0} currentUser={currentUser} />
+
+
+			</Dialog>
+
+
+		</>
 		
-		<FuseAnimate animation="transition.slideUpIn" delay={300}>
-			<ContactsTable
-				columns={columns}
-				data={contactsModified}
-				onRowClick={(ev, row) => {
-					if (row) {
-						dispatch(openEditContactDialog(row.original));
-					}
-				}}
-			/>
-		</FuseAnimate>
-		
-		//<div>ContactsTable here</div>
 	);
 }
 

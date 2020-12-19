@@ -171,7 +171,7 @@ function Login() {
 							<FuseAnimate delay={500}>
 								
 								<Typography variant="subtitle1" color="inherit" className="mt-32">
-									This is where your football<br></br>team come to life.
+									This is where your football<br></br>team comes to life.
 								</Typography>
 
 							

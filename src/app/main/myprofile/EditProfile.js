@@ -16,6 +16,7 @@ import dayjs from 'dayjs'
 import { updateMyProfile } from './store/myprofileSlice';
 import { useDispatch } from 'react-redux';
 
+
 function EditProfile(data) {
 
 	const [f_name, setF_name] = useState("")

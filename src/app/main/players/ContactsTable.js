@@ -30,8 +30,9 @@ const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref)
 
 const EnhancedTable = ({ columns, data, onRowClick }) => {
 
-	console.log("ContactsTable")
-	console.log("Data in ContactsTable", data)
+	//console.log("ContactsTable")
+	//console.log("Data in ContactsTable", data)
+	//console.log("onRowClick in ContactsTable", onRowClick)
 
 
 	const {
@@ -130,7 +131,7 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
 							return (
 								<TableRow
 									{...row.getRowProps()}
-									onClick={ev => onRowClick(ev, row)}
+									onClick={ev => onRowClick(ev, row)} // SIGNET
 									className="truncate cursor-pointer"
 								>
 									{row.cells.map(cell => {

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import React, { useEffect } from 'react';
 import reducer from './store';
-//import _ from '@lodash';
+import _ from '@lodash';
 
 const useStyles = makeStyles(theme => ({
 	layoutRoot: {}
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 function GamesPage(props) {
 
 
-	console.log("props in GamesPage", props)
+	//console.log("props in GamesPage", props)
 
 	const classes = useStyles(props);
 
@@ -27,6 +27,8 @@ function GamesPage(props) {
 	const dispatch = useDispatch();
 	const games = useSelector(selectGamesEntities); 
 
+	//console.log("Games received : ", games)
+
 	useEffect(() => {
 
 		//console.log("useEffect in GamesPage")
@@ -35,9 +37,9 @@ function GamesPage(props) {
 
 	}, [dispatch]);
 
-	// if (_.isEmpty(games)) {   
-	// 	return null;
-	// }	
+	if (_.isEmpty(games)) {   
+		return null;
+	}	
 
 	return (
 		<FusePageSimple
@@ -45,12 +47,6 @@ function GamesPage(props) {
 				root: classes.layoutRoot
 			}}
 
-			// header={
-			// 	<div className="p-24">
-			// 		<h4>{t('TITLE')}</h4>
-			// 	</div>
-			// }
-			
 			content={
 				<div className="p-24">
 					<GamesMap data={games} props={props}/>
