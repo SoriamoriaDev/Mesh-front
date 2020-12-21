@@ -10,7 +10,7 @@ import React from 'react';
 function ContactsHeader(props) {
 
 
-	console.log("TeamsHeader")
+	//console.log("TeamsHeader")
 
 	return (
 		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
@@ -62,6 +62,10 @@ function ContactsHeader(props) {
 					</FuseAnimate>
 				</ThemeProvider>
 			</div> */}
+
+
+
+
 		</div>
 	);
 }

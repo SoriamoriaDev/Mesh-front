@@ -8,15 +8,33 @@ import TeamsHeader from './TeamsHeader';
 import TeamsList from './TeamsList';
 import reducer from './store';
 import { getTeams } from './store/teamsSlice';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
+import { makeStyles } from '@material-ui/core/styles';
 
 function Teams(props) {
 
-	console.log("Teams")
+	//console.log("Teams")
 
 	const dispatch = useDispatch();
+	
 
 	const pageLayout = useRef(null);
 	const routeParams = useParams();
+
+
+	const useStyles = makeStyles(theme => ({
+		addButton: {
+			position: 'absolute',
+			right: 12,
+			top: 50,
+			zIndex: 99
+		}
+	}));
+
+	const classes = useStyles(props);
+
 
 	//console.log("routeParams", routeParams)
 
@@ -46,6 +64,25 @@ function Teams(props) {
 				ref={pageLayout}
 				innerScroll
 			/>
+
+			<FuseAnimate animation="transition.expandIn" delay={500}>
+				<Fab
+					color="secondary"
+					aria-label="add"
+					className={classes.addButton}
+					// onClick={() =>
+					// 	dispatch(
+					// 		openNewEventDialog({
+					// 			start: new Date(),
+					// 			end: new Date()
+					// 		})
+					// 	)
+					// }
+				>
+					<Icon>add</Icon>
+				</Fab>
+			</FuseAnimate>
+
 		</>
 	);
 }

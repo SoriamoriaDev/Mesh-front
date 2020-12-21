@@ -77,31 +77,13 @@ function TeamCard(data) {
 			<CardContent>
 				
 				<br/>
-				
-				{/* <img src={currentTeam.logo ? currentTeam.logo : "/assets/images/teams/OM_logo.png"} 
-					alt="avatar" 
-					style={{
-					width: 150,
-					height: 150,
-					borderRadius: 150 / 2,
-					borderColor: "white",
-					borderWidth: 3,
-					objectFit: "cover",
-					display: "block",
-					marginLeft: "auto",
-					marginRight: "auto"
-					}}
-				/> */}
+
 
 				<img src={currentTeam.logo ? currentTeam.logo : "/assets/images/teams/OM_logo.png"} 
 					alt="logo" 
 					style={{
 					width: 150,
 					height: 150,
-					// borderRadius: 150 / 2,
-					// borderColor: "white",
-					// borderWidth: 3,
-					// objectFit: "cover",
 					display: "block",
 					marginLeft: "auto",
 					marginRight: "auto"
@@ -119,7 +101,7 @@ function TeamCard(data) {
 					<LocationOn style={{  fontSize:"20", color: "#55e7b5" }} > You</LocationOn>
 
 					&nbsp;&nbsp;
-					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentTeam.city? currentTeam.city : "City"}, {currentTeam.country ? currentTeam.country : "Country"}</p> 
+					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentTeam.city? currentTeam.city : "City"}</p> 
 
 				</div>
 
@@ -135,6 +117,10 @@ function TeamCard(data) {
 					&nbsp;&nbsp;
 					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentTeam.country ? currentTeam.country : "Country"}</p> 
 
+					<br/>
+					<br/>
+					<p style={{textAlign: "center", fontSize: 15}}>{currentTeam.foundation_date ? <div>Since {dayjs(currentTeam.foundation_date).format("YYYY")}</div> : ""}</p> 
+
 				</div>
 
 			</CardContent>
@@ -146,8 +132,6 @@ function TeamCard(data) {
 				</div> */}
 
 			<CardContent>
-
-				<br/>
 
 				{/* <div>
 					

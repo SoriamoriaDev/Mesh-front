@@ -13,7 +13,7 @@ export const getTeams = createAsyncThunk('players/getTeams', async (routeParams,
 
 	const data = await response.data.data;
 
-	console.log("Teams - Data back from DB : ", response.data)
+	//console.log("Teams - Data back from DB : ", response.data)
 
 	return { data, routeParams };
 });

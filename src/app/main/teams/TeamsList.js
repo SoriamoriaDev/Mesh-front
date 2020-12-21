@@ -183,7 +183,7 @@ function TeamsList(props) {
 
 	}
 
-	console.log("teams modified", teamsModified)
+	//console.log("teams modified", teamsModified)
 
 
 	return (
