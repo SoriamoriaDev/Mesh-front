@@ -46,7 +46,7 @@ const navigationConfig = [  // SIGNET
 				translate: 'Teams',
 				type: 'item',
 				icon: 'security',
-				url: '/comingsoon'
+				url: '/teams'
 			},
 			{
 				id: 'transfer',

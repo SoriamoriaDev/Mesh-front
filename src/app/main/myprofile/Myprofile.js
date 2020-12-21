@@ -63,7 +63,7 @@ function MyprofilePage(props) {
 			content={
 				<div className="row">
 
-					<div className="p-12">
+					<div className="p-12" style={{padding:30}}>
 					
 						<FuseAnimateGroup
 							className="flex flex-wrap"

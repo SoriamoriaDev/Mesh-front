@@ -9,9 +9,10 @@ import RegisterConfig from 'app/main/register/RegisterConfig';
 import ComingsoonConfig from 'app/main/comingsoon/ComingsoonConfig';
 import MyprofileConfig from 'app/main/myprofile/MyprofileConfig';
 import PlayersAppConfig from 'app/main/players/PlayersAppConfig';
+import TeamsAppConfig from 'app/main/teams/TeamsAppConfig';
 
 
-const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig];
+const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig, TeamsAppConfig]; //SIGNET
 
 const routes = [
 
@@ -43,6 +44,10 @@ const routes = [
 	{
 		path: '/players',
 		component: () => <Redirect to="/players" />
+	},
+	{
+		path: '/teams',
+		component: () => <Redirect to="/teams" />
 	}
 ];
 

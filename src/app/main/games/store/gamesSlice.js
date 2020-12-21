@@ -5,7 +5,7 @@ export const getGames = createAsyncThunk('games/getGames', async () => {   // SI
 	const response = await axios.get(`${process.env.REACT_APP_API_URL}/event/all`); 
 	const data = await response.data;
 
-    console.log("getGames : Data back from back end", data)
+    //console.log("getGames : Data back from back end", data)
 	return data;
 });
 
