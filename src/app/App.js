@@ -24,7 +24,7 @@ const jss = create({
 
 const generateClassName = createGenerateClassName();
 
-const App = () => {
+const App = () => { //SIGNET
 	return (
 		<AppContext.Provider
 			value={{

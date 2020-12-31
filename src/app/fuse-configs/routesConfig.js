@@ -9,10 +9,10 @@ import RegisterConfig from 'app/main/register/RegisterConfig';
 import ComingsoonConfig from 'app/main/comingsoon/ComingsoonConfig';
 import MyprofileConfig from 'app/main/myprofile/MyprofileConfig';
 import PlayersAppConfig from 'app/main/players/PlayersAppConfig';
-import TeamsAppConfig from 'app/main/teams/TeamsAppConfig';
+import TeamsConfig from 'app/main/teams/TeamsConfig';
 
 
-const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig, TeamsAppConfig]; //SIGNET
+const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig, TeamsConfig]; //SIGNET
 
 const routes = [
 

@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/too
 
 
 export const sendGPSLocation = createAsyncThunk('GPSlocation/location/sendLocation', async (data) => {   // SIGNET
-	console.log("data in createAsyncThunk", data)
+	//console.log("data in createAsyncThunk", data)
 	return data;
 
 });

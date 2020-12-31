@@ -1,6 +1,6 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import withReducer from 'app/store/withReducer';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
@@ -12,13 +12,17 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
+import CreateTeam from './CreateTeam';
+import { Dialog } from '@material-ui/core';
 
 function Teams(props) {
 
-	//console.log("Teams")
+	console.log("Teams")
+
+	//console.log("props in Teams : ", props)
 
 	const dispatch = useDispatch();
-	
+	const [openDialog, setOpenDialog] = useState(false);
 
 	const pageLayout = useRef(null);
 	const routeParams = useParams();
@@ -47,8 +51,22 @@ function Teams(props) {
 
 	}, [dispatch, routeParams]);
 
+	function handleOpenDialog() {
+		//setCurrentUser(teams[id])
+		//console.log("Open dialog")
+		setOpenDialog(true);
+	}
+
+
+
+	function handleCloseDialog() {
+		setOpenDialog(false);
+	}
+
+
 	return (
 		<>
+
 			<FusePageSimple
 				classes={{
 					contentWrapper: 'p-0 sm:p-24 h-full',
@@ -58,7 +76,7 @@ function Teams(props) {
 					wrapper: 'min-h-0'
 				}}
 				header={<TeamsHeader pageLayout={pageLayout} />}
-				content={<TeamsList />}
+				content={<TeamsList props={props}/>}
 				//leftSidebarContent={<ContactsSidebarContent />}
 				sidebarInner
 				ref={pageLayout}
@@ -70,18 +88,20 @@ function Teams(props) {
 					color="secondary"
 					aria-label="add"
 					className={classes.addButton}
-					// onClick={() =>
-					// 	dispatch(
-					// 		openNewEventDialog({
-					// 			start: new Date(),
-					// 			end: new Date()
-					// 		})
-					// 	)
-					// }
+					onClick={() => handleOpenDialog()}
 				>
 					<Icon>add</Icon>
 				</Fab>
 			</FuseAnimate>
+
+			<Dialog
+				open={openDialog}
+				onClose={handleCloseDialog}
+			>
+
+				<CreateTeam/> 
+
+			</Dialog>
 
 		</>
 	);

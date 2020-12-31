@@ -7,11 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
 import TeamsTable from './TeamsTable';
-import { removeContact, toggleStarredContact, selectTeamsEntities  } from './store/teamsSlice';
+import { toggleStarredContact, selectTeamsEntities  } from './store/teamsSlice';
 import _ from '@lodash';
 import dayjs from 'dayjs'
 import TeamCard from './TeamCard';
 import Dialog from '@material-ui/core/Dialog';
+import { withRouter } from 'react-router-dom';
 
 
 function TeamsList(props) {
@@ -81,7 +82,7 @@ function TeamsList(props) {
 			},
 			{
 				Header: '# Members',
-				accessor: 'members',
+				accessor: '',
 				sortable: true
 			},
 			{
@@ -97,8 +98,10 @@ function TeamsList(props) {
 					<div className="flex items-center">
 						<IconButton
 							onClick={ev => {
-								ev.stopPropagation();
-								dispatch(toggleStarredContact(row.original.id));
+								//ev.stopPropagation();
+								//dispatch(toggleStarredContact(row.original.id));
+								handleClick(row.original._id);
+								//console.log("row : ", row)
 							}}
 						>
 							{user.starred && user.starred.includes(row.original.id) ? (
@@ -107,14 +110,16 @@ function TeamsList(props) {
 								<Icon>star_border</Icon>
 							)}
 						</IconButton>
+
 						<IconButton
 							onClick={ev => {
 								ev.stopPropagation();
-								dispatch(removeContact(row.original.id));
+								//dispatch(removeContact(row.original.id));
 							}}
 						>
 							<Icon>delete</Icon>
 						</IconButton>
+
 					</div>
 				)
 			}
@@ -149,6 +154,17 @@ function TeamsList(props) {
 
 	function handleCloseDialog() {
 		setOpenDialog(false);
+	}
+
+
+	//console.log("props in TeamList: ", props)
+	//console.log("props.history in TeamList : ", props.props.history)
+
+
+	function handleClick(id) {
+		//props.history.push(`/apps/e-commerce/products/${item.id}/${item.handle}`);
+		//console.log("push in history : " , id)
+		props.props.history.push(`/teams/team/${id}`);
 	}
 
 
@@ -193,11 +209,11 @@ function TeamsList(props) {
 				<TeamsTable
 					columns={columns}
 					data={teamsModified}
-					onRowClick={(ev, row) => {
-						if (row) {
-							handleOpenDialog(row.id)
-						}
-					}}
+					// onRowClick={(ev, row) => {
+					// 	if (row) {
+					// 		handleOpenDialog(row.id)
+					// 	}
+					// }}
 				/>
 
 			</FuseAnimate>
@@ -218,4 +234,4 @@ function TeamsList(props) {
 	);
 }
 
-export default TeamsList;
+export default withRouter(TeamsList);

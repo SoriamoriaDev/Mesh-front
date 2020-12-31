@@ -8,8 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
-//import EditProfile from './EditProfile';
 import LocationOn from '@material-ui/icons/LocationOn';
+//import CustomizedRatings from './Rating';
 import dayjs from 'dayjs'
 import _ from '@lodash';
 
@@ -18,25 +18,28 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		maxWidth: 400,
 		minWidth: 400,
+		top: 0
 		//margin: 30
 	  },
 }));
 
-function TeamCard(data) {
+function TeamStats(data) {
+
+	//console.log("TeamStats")
 
 	// eslint-disable-next-line 
 	const { t } = useTranslation('MyprofilePage');
 	const classes = useStyles(data);
-	const currentTeam =  data.currentTeam;
+	//const currentUser =  data.currentUser;
 
 	const me = useSelector(({ auth }) => auth.user);
 	
-	//console.log("currentTeam : ", currentTeam)
+	//console.log("currentUser : ", currentUser)
 	
-	// Prevent error when currentTeam data is not loaded yet
-	if (_.isEmpty(currentTeam)) {   
-		return null;
-	}	
+	// Prevent error when currentUser data is not loaded yet
+	// if (_.isEmpty(currentUser)) {   
+	// 	return null;
+	// }	
 
 	return (
 		
@@ -44,46 +47,31 @@ function TeamCard(data) {
 		<Card className={classes.root}>
 			
 
-			{ me._id === currentTeam._id ? 
-			
 				<CardHeader 
 				
-					action={
-						<IconButton aria-label="settings">
-							{/* <EditProfile currentTeam={currentTeam} /> */}
-						</IconButton>
-						}
-
-					title="My profile" 
-					//center="true"
+					title="Stats" 
 
 				/>
-
-			: 
-
-				<CardHeader 
-				
-					
-
-					title="Team info" 
-					//center="true"
-
-				/>
-			
-			}
 
 			
 
 			<CardContent>
+
+				Team statistics
 				
-				<br/>
-
-
-				<img src={currentTeam.logo ? currentTeam.logo : "/assets/images/teams/OM_logo.png"} 
-					alt="logo" 
+			</CardContent>
+				
+				{/* <br/>
+				
+				<img src={currentUser.data.photoURL ? currentUser.data.photoURL : "/assets/images/avatars/avatar.png"} 
+					alt="avatar" 
 					style={{
 					width: 150,
 					height: 150,
+					borderRadius: 150 / 2,
+					borderColor: "white",
+					borderWidth: 3,
+					objectFit: "cover",
 					display: "block",
 					marginLeft: "auto",
 					marginRight: "auto"
@@ -92,8 +80,8 @@ function TeamCard(data) {
 
 				<br/>
 
-				{currentTeam ? 
-				<h2 style={{textAlign: "center", fontSize: 25}}>{currentTeam.name}</h2>
+				{currentUser ? 
+				<h2 style={{textAlign: "center", fontSize: 25}}>{currentUser.f_name} {currentUser.l_name}</h2>
 				: "" }
 
 				<div style={{textAlign: "center"}}>
@@ -101,39 +89,37 @@ function TeamCard(data) {
 					<LocationOn style={{  fontSize:"20", color: "#55e7b5" }} > You</LocationOn>
 
 					&nbsp;&nbsp;
-					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentTeam.city? currentTeam.city : "City"}</p> 
+					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentUser.current_town ? currentUser.current_town : "City"}, {currentUser.country ? currentUser.country : "Country"}</p> 
 
 				</div>
 
 				<div style={{textAlign: "center"}}>
 
 					<img
-						className="mx-4 min-w-20 inline-block" //TODO
+						className="mx-4 min-w-20 inline-block"
 						src={`assets/images/flags/fr.png`}
 						verticalalign="top"
 						alt="flag"
 						
 					/>
 					&nbsp;&nbsp;
-					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentTeam.country ? currentTeam.country : "Country"}</p> 
-
-					<br/>
-					<br/>
-					<p style={{textAlign: "center", fontSize: 15}}>{currentTeam.foundation_date ? <span>Since {dayjs(currentTeam.foundation_date).format("YYYY")}</span> : ""}</p> 
+					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>{currentUser.nationality ? currentUser.nationality : "Nationality"}</p> 
 
 				</div>
 
 			</CardContent>
 			
-				{/* <div style={{backgroundColor: "rgba(250, 250, 250, 0.1)" }}>
+				<div style={{backgroundColor: "rgba(250, 250, 250, 0.1)" }}>
 					<p  style={{padding: "10px", textAlign: "center", color: "white", fontSize: "medium"}}>
-					{ currentTeam.dob ? dayjs().diff(currentTeam.dob, 'years')+ " years" : "Age" }   &nbsp; |  &nbsp; {currentTeam.height ? currentTeam.height + " cm" : "Height"} &nbsp;  |  &nbsp; {currentTeam.weight ? currentTeam.weight + " kg" : "Weight"} &nbsp;  |  &nbsp; {currentTeam.main_foot ? currentTeam.main_foot : "Preferred foot"}
+					{ currentUser.dob ? dayjs().diff(currentUser.dob, 'years')+ " years" : "Age" }   &nbsp; |  &nbsp; {currentUser.height ? currentUser.height + " cm" : "Height"} &nbsp;  |  &nbsp; {currentUser.weight ? currentUser.weight + " kg" : "Weight"} &nbsp;  |  &nbsp; {currentUser.main_foot ? currentUser.main_foot : "Preferred foot"}
 					</p>
-				</div> */}
+				</div>
 
 			<CardContent>
 
-				{/* <div>
+				<br/>
+
+				<div>
 					
 					<p className="inline-block" style={{textAlign: "center", fontSize: 15}}>TEAMS &nbsp; &nbsp; &nbsp;</p>
 					<img className="inline-block" alt="team badge" src="/assets/images/teams/OM_logo.png" height="50" width="50"/> &nbsp; &nbsp; &nbsp;
@@ -145,19 +131,19 @@ function TeamCard(data) {
 				<br/>
 				<div>
 					<p className="inline-block" style={{textAlign: "center", verticalAlign: "40%", fontSize: 15}}>PERFORMANCE &nbsp; &nbsp; &nbsp;</p> 
-					<CustomizedRatings  rating={currentTeam.performance}/>
+					<CustomizedRatings  rating={currentUser.performance}/>
 				</div>
 				<br/>
 				<br/>
 				<div>
 					<p className="inline-block" style={{textAlign: "center", verticalAlign: "40%", fontSize: 15}}>ATTENDANCE &nbsp; &nbsp; &nbsp; &nbsp; </p> 
-					<CustomizedRatings rating={currentTeam.visitGames}/>
-				</div> */}
+					<CustomizedRatings rating={currentUser.visitGames}/>
+				</div>
 
 				<br/>
 				
 
-			</CardContent>
+			</CardContent> */}
 
 		</Card>
 
@@ -165,4 +151,4 @@ function TeamCard(data) {
 	);
 }
 
-export default TeamCard;
+export default TeamStats;
