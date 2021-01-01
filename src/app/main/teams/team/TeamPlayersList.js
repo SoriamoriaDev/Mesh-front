@@ -47,11 +47,11 @@ function TeamPlayersList(data) {
 	const me = useSelector(({ auth }) => auth.user);
 	const players = useSelector(({ teams }) => teams.teams.teamPlayers);
 
-	console.log("Players in team : ", players)
+	//console.log("Players in team : ", players)
 
 	useDeepCompareEffect(() => {
 
-		console.log("useDeepCompareEffect...")
+		//console.log("useDeepCompareEffect...")
 
 		dispatch(getTeamPlayers(routeParams));
 
@@ -122,8 +122,6 @@ function TeamPlayersList(data) {
 	let applicants = []
 
 	if(pending.length){
-
-		console.log("generating applicant List...")
 
 		applicants = pending.map((player, index) => (
 

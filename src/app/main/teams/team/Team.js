@@ -1,6 +1,6 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import withReducer from 'app/store/withReducer';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
@@ -68,18 +68,30 @@ function Team(props) {
 
 	//console.log("currentTeam : ", currentTeam)
 
-	//if(currentTeam) console.log("currentTeam : ", currentTeam)
+	if(currentTeam) console.log("currentTeam.members_confirmed : ", currentTeam.members_confirmed)
 
-	//if(me) console.log("me._id : ", me._id)
+	if(me) console.log("me._id : ", me._id)
 
-	let checkIfPartOfTeam
+	let checkIfPartOfTeam = -1
 
-	if(currentTeam) checkIfPartOfTeam = currentTeam.members_confirmed.find(element => element == me._id)
+	//if(currentTeam) checkIfPartOfTeam = currentTeam.members_confirmed.find(element => element == me._id)
+	if(currentTeam) checkIfPartOfTeam = currentTeam.members_confirmed.indexOf(me._id)
 
-	if(checkIfPartOfTeam && !isUserPartOfTeam){
+	console.log("checkIfPartOfTeam : ", checkIfPartOfTeam)
 
-		//console.log("checkIfPartOfTeam : ", checkIfPartOfTeam)
+	if(checkIfPartOfTeam !== -1 && !isUserPartOfTeam){
+
+		console.log("set IsUserPartOfTeam to true")
+		
 		setIsUserPartOfTeam(true)
+
+	}
+
+	if(checkIfPartOfTeam == -1 && isUserPartOfTeam){
+
+		console.log("set IsUserPartOfTeam to false")
+		
+		setIsUserPartOfTeam(false)
 
 	}
 
@@ -89,10 +101,17 @@ function Team(props) {
 
 	}, [dispatch, routeParams]);
 
+	useEffect(() => {
+        return () => {
+			// Anything in here is fired on component unmount.
+			setIsUserPartOfTeam(false)
+        }
+    }, [])
+
 
 	function handleJoinRequest() {
 
-		console.log("Asked to join")
+		//console.log("Asked to join")
 		setOpenToaster(true);
 		let data = {teamID: routeParams.teamId, userID: me._id}
 		dispatch(askJoinTeam(data));
@@ -113,7 +132,7 @@ function Team(props) {
 		return null;
 	}
 
-	//console.log("isUserPartOfTeam ? :", isUserPartOfTeam)
+	console.log("isUserPartOfTeam ? :", isUserPartOfTeam)
 
 	return (
 		<>
