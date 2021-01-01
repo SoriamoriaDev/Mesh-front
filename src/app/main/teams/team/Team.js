@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
 import reducer from '../store';
-import { askJoinTeam, getTeam } from '../store/teamsSlice';
+import { requestJoinTeam, getTeam } from '../store/teamsSlice';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, Snackbar } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
 import TeamHeader from './TeamHeader';
 import TeamPlayersList from './TeamPlayersList';
 import TeamStats from './TeamStats';
@@ -68,20 +68,20 @@ function Team(props) {
 
 	//console.log("currentTeam : ", currentTeam)
 
-	if(currentTeam) console.log("currentTeam.members_confirmed : ", currentTeam.members_confirmed)
+	//if(currentTeam) console.log("currentTeam.members_confirmed : ", currentTeam.members_confirmed)
 
-	if(me) console.log("me._id : ", me._id)
+	//if(me) console.log("me._id : ", me._id)
 
 	let checkIfPartOfTeam = -1
 
 	//if(currentTeam) checkIfPartOfTeam = currentTeam.members_confirmed.find(element => element == me._id)
 	if(currentTeam) checkIfPartOfTeam = currentTeam.members_confirmed.indexOf(me._id)
 
-	console.log("checkIfPartOfTeam : ", checkIfPartOfTeam)
+	//console.log("checkIfPartOfTeam : ", checkIfPartOfTeam)
 
 	if(checkIfPartOfTeam !== -1 && !isUserPartOfTeam){
 
-		console.log("set IsUserPartOfTeam to true")
+		//console.log("set IsUserPartOfTeam to true")
 		
 		setIsUserPartOfTeam(true)
 
@@ -89,7 +89,7 @@ function Team(props) {
 
 	if(checkIfPartOfTeam == -1 && isUserPartOfTeam){
 
-		console.log("set IsUserPartOfTeam to false")
+		//console.log("set IsUserPartOfTeam to false")
 		
 		setIsUserPartOfTeam(false)
 
@@ -101,12 +101,13 @@ function Team(props) {
 
 	}, [dispatch, routeParams]);
 
-	useEffect(() => {
-        return () => {
-			// Anything in here is fired on component unmount.
-			setIsUserPartOfTeam(false)
-        }
-    }, [])
+	// On component unmount (not sure if it works) :
+	// useEffect(() => {
+    //     return () => {
+	// 		// Anything in here is fired on component unmount.
+	// 		setIsUserPartOfTeam(false)
+    //     }
+    // }, [])
 
 
 	function handleJoinRequest() {
@@ -114,7 +115,7 @@ function Team(props) {
 		//console.log("Asked to join")
 		setOpenToaster(true);
 		let data = {teamID: routeParams.teamId, userID: me._id}
-		dispatch(askJoinTeam(data));
+		dispatch(requestJoinTeam(data));
 
 	}
 
@@ -132,7 +133,7 @@ function Team(props) {
 		return null;
 	}
 
-	console.log("isUserPartOfTeam ? :", isUserPartOfTeam)
+	//console.log("isUserPartOfTeam ? :", isUserPartOfTeam)
 
 	return (
 		<>
@@ -152,7 +153,7 @@ function Team(props) {
 					<div>
 
 						<div  style={{padding:"12px", display : 'inline-block', verticalAlign:"top"}}>
-							<TeamPlayersList  currentTeam={currentTeam}/>
+							<TeamPlayersList  currentTeam={currentTeam} isUserPartOfTeam={isUserPartOfTeam}/>
 						</div>
 
 						<div  style={{padding:"12px" , display : 'inline-block', verticalAlign:"top"}}>

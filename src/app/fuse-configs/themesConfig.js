@@ -1,7 +1,7 @@
 import { fuseDark, skyBlue} from '@fuse/colors';
 import { lightBlue, red } from '@material-ui/core/colors';
 
-const themesConfig = {
+const themesConfig = { // SIGNET
 	mesh01: {
 		palette: {
 			type: 'dark',
@@ -23,7 +23,7 @@ const themesConfig = {
 			error: red
 		},
 		status: {
-			danger: 'orange'
+			danger: '#ec00c9'
 		}
 	},
 	default: {

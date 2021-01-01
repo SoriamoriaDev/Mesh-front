@@ -14,6 +14,7 @@ import dayjs from 'dayjs'
 import _ from '@lodash';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
+import MembersPromotions from './MembersPromotions';
 
 const useStyles = makeStyles(theme => ({
 	layoutRoot: {},
@@ -98,8 +99,6 @@ function TeamPlayersListItem(data) {
 						borderWidth: 2,
 						objectFit: "cover",
 						display: "inline-block",
-						//marginLeft: "auto",
-						//marginRight: "auto"
 						}}
 					/>
 
@@ -110,11 +109,7 @@ function TeamPlayersListItem(data) {
 
 						<p style={{fontSize:"12px", paddingRight:"20px", display : 'inline-block'}}>{data.title}</p>
 
-						
-						
-						<IconButton size="small" aria-label="edit" color="secondary">
-							<Icon>edit</Icon>
-						</IconButton>
+						<MembersPromotions currentPlayer={currentPlayer} status={data.title} />
 
 					</div>
 					

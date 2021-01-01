@@ -71,7 +71,7 @@ export const getTeamPlayers = createAsyncThunk('teams/getTeamPlayers', async (pa
 
 });
 
-export const askJoinTeam = createAsyncThunk('teams/askJoinTeam', async (info, { dispatch, getState }) => {
+export const requestJoinTeam = createAsyncThunk('teams/requestJoinTeam', async (info, { dispatch, getState }) => {
 	
 	//routeParams = routeParams || getState().contactsApp.contacts.routeParams;
 	console.log("info in slice : ", info)
@@ -80,11 +80,32 @@ export const askJoinTeam = createAsyncThunk('teams/askJoinTeam', async (info, { 
 
 	info.teamId = info.teamID
 
-	const response = await axios.post((`${process.env.REACT_APP_API_URL}/team/asktojoin/${info.teamID}`), { userID } );
+	const response = await axios.post((`${process.env.REACT_APP_API_URL}/team/request/${info.teamID}`), { userID } );
 
 	const data = await response.data.data;
 
-	console.log("askJoinTeam - Data back from DB : ", response.data)
+	//console.log("requestJoinTeam - Data back from DB : ", response.data)
+
+	dispatch(getTeamPlayers(info));
+	dispatch(getTeam(info));
+
+	return data;
+});
+
+export const handleJoinTeam = createAsyncThunk('teams/handleJoinRequest', async (info, { dispatch, getState }) => {
+	
+	//routeParams = routeParams || getState().contactsApp.contacts.routeParams;
+	console.log("info in slice : ", info)
+
+	let userID = info.userID
+
+	info.teamId = info.teamID
+
+	const response = await axios.post((`${process.env.REACT_APP_API_URL}/team/handlejoinrequest/${info.teamID}`), { info } );
+
+	const data = await response.data.data;
+
+	console.log("handleJoinTeam - Data back from DB : ", response.data)
 
 	dispatch(getTeamPlayers(info));
 	dispatch(getTeam(info));
@@ -221,7 +242,6 @@ export const { selectEntities: selectTeamsEntities, selectById: selectTeamsById,
 const teamsSlice = createSlice({
 	name: 'teams',
 	initialState: teamsAdapter.getInitialState({
-		//players: [],
 		searchText: '',
 		routeParams: {},
 		contactDialog: {
