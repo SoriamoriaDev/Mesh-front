@@ -49,8 +49,7 @@ export const createNewTeam = createAsyncThunk('teams/createTeam', async (team, {
 	const data = await response.data.data;
 	dispatch(getTeams());
 
-	//console.log("createTeam - Data back from DB : ", response.data)
-
+	console.log("createTeam - Data back from DB : ", response.data)
 
 	return data;
 });
@@ -65,7 +64,7 @@ export const getTeamPlayers = createAsyncThunk('teams/getTeamPlayers', async (pa
 
 	const data = await response.data.data;
 
-	console.log("getTeamPlayers - Data back from DB : ", data)
+	//console.log("getTeamPlayers - Data back from DB : ", data)
 
 	return data ;
 
@@ -95,7 +94,7 @@ export const requestJoinTeam = createAsyncThunk('teams/requestJoinTeam', async (
 export const handleJoinTeam = createAsyncThunk('teams/handleJoinRequest', async (info, { dispatch, getState }) => {
 	
 	//routeParams = routeParams || getState().contactsApp.contacts.routeParams;
-	console.log("info in slice : ", info)
+	//console.log("info in slice : ", info)
 
 	let userID = info.userID
 
@@ -105,7 +104,7 @@ export const handleJoinTeam = createAsyncThunk('teams/handleJoinRequest', async 
 
 	const data = await response.data.data;
 
-	console.log("handleJoinTeam - Data back from DB : ", response.data)
+	//console.log("handleJoinTeam - Data back from DB : ", response.data)
 
 	dispatch(getTeamPlayers(info));
 	dispatch(getTeam(info));
@@ -232,9 +231,9 @@ export const setContactsUnstarred = createAsyncThunk(
 
 const teamsAdapter = createEntityAdapter({});
 
-//export const { selectAll: selectContacts, selectById: selectContactsById } = contactsAdapter.getSelectors(
+
 export const { selectEntities: selectTeamsEntities, selectById: selectTeamsById, selectOneTeam: selectTeamsOneTeam } = teamsAdapter.getSelectors(
-	//state => state.contactsApp.contacts
+
 	state => state.teams.teams
 );
 
@@ -297,43 +296,29 @@ const teamsSlice = createSlice({
 		}
 	},
 	extraReducers: {
-		//[updateContact.fulfilled]: teamsAdapter.upsertOne,
-		//[addContact.fulfilled]: teamsAdapter.addOne,
-		// [getContacts.fulfilled]: (state, action) => {
-		// 	const { data, routeParams } = action.payload;
-		// 	teamsAdapter.setAll(state, data);
-		// 	state.routeParams = routeParams;
-		// 	state.searchText = '';
-		// },
-		// [getPlayers.fulfilled]: (state, action) => {
-		// 	state.entities = action.payload.data;
-			
-		// },
+		
 		[getTeams.fulfilled]: (state, action) => {
+
 			state.entities = action.payload.data;
 			
 		},
 		[getTeam.fulfilled]: (state, action) => {
-			//console.log("action.payload.data : ", action.payload.data)
-			//console.log("action.payload : ", action.payload)
+			
 			state.oneTeam = action.payload;
 			
 		},
 		[getTeamPlayers.fulfilled]: (state, action) => {
-			//console.log("action.payload.data : ", action.payload.data)
-			//console.log("action.payload : ", action.payload)
+			
 			state.teamPlayers = action.payload;
+			
+		},
+		[createNewTeam.fulfilled]: (state, action) => {
+			
+			state.newTeam = action.payload;
 			
 		}
 	}
 });
 
-// export const {
-// 	setContactsSearchText,
-// 	openNewContactDialog,
-// 	closeNewContactDialog,
-// 	openEditContactDialog,
-// 	closeEditContactDialog
-// } = teamsSlice.actions;
 
 export default teamsSlice.reducer;

@@ -35,7 +35,8 @@ function Alert(props) {
 
 function MembersPromotions(data) {
 
-	console.log("MembersPromotions")
+	
+	//console.log("MembersPromotions")
 
 	// eslint-disable-next-line 
 	const { t } = useTranslation('MyprofilePage');
@@ -53,7 +54,7 @@ function MembersPromotions(data) {
 	const [isUserPartOfTeam, setIsUserPartOfTeam] = useState(false);
 	const [isUserTeamAdmin, setIsUserTeamAdmin] = useState(false);
 	
-	console.log("currentPlayer : ", currentPlayer)
+	//console.log("currentPlayer : ", currentPlayer)
 	//console.log("me in MembersPromotions : ", me)
 	//console.log("currentTeam in MembersPromotions : ", currentTeam)
 
@@ -83,6 +84,7 @@ function MembersPromotions(data) {
 	const handleOpenDialog = () => {
 
 		setOpenDialog(true)
+		
 
   	};
 
@@ -94,17 +96,27 @@ function MembersPromotions(data) {
   
 	const handleListItemClick = (value) => {
 
+		// console.time("test")
+
 		console.log(value)
 		setOpenDialog(false)
-		let data = {teamID: routeParams.teamId, userID: currentPlayer._id, decision: value}
-		dispatch(handleJoinTeam(data))
 		setOpenToaster(true);
+
+		let data = {teamID: routeParams.teamId, userID: currentPlayer._id, decision: value}
+
+		setTimeout( () => dispatch(handleJoinTeam(data)) , 3000);
+		
+		
+		// console.timeEnd("test")
+		
 		
 	};
 
 	function handleCloseToaster(){
-		console.log("Close toaster function")
+
+		//console.log("Close toaster function")
 		setOpenToaster(false);
+		
 	}
 	
 	// Prevent error when currentUser data is not loaded yet

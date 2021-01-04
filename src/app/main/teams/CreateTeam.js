@@ -9,9 +9,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewTeam } from './store/teamsSlice';
+import { withRouter } from 'react-router-dom';
 
 
-function CreateTeam() {
+function CreateTeam(props) {
 
 	// eslint-disable-next-line
 	const { t } = useTranslation('mailApp');
@@ -20,25 +21,24 @@ function CreateTeam() {
 	const [city, setCity] = useState("")
 	const [photoURL, setPhotoURL] = useState("")
 	const [country, setCountry] = useState("")
+	const [teamID, setTeamID] = useState("")
 
 	const dispatch = useDispatch(); 
+
+	//console.log("props in CreateTeam : ", props)
 
 	
 
 	const me = useSelector(({ auth }) => auth.user);
-
-	console.log("me", me)
-
-	// useEffect(() => {
+	const newTeam = useSelector(({ teams }) => teams.teams.newTeam);
 
 
-	// }, [data])
-
-	
+	//console.log("me", me)
+	console.log("newTeam", newTeam)
 
 
 	function handleSave() {
-		
+
 		console.log("Saved! :)")
 		
 		let team = {
@@ -49,14 +49,42 @@ function CreateTeam() {
 			country: country,
 			foundation_date: new Date(),
 			founder_id: me._id,
-			founder_name: me.f_name + " " + me.l_name
+			founder_name: me.f_name + " " + me.l_name,
+			members_confirmed: me._id,
+			"titles.founder" : me._id
 
 		}
 
-		//console.log("team to be sent : ", team)
-
 		dispatch(createNewTeam(team));
+		//setTimeout( () => props.history.push(`/teams/team/${newTeam._id}`) , 3000)
+
+
 	}
+
+	useEffect(() => {
+		
+		if(newTeam !== undefined){
+
+			console.log("newTeamID not equal to undefined")
+
+			setTimeout( () => {
+				props.history.push(`/teams/team/${newTeam._id}`)
+
+			} , 3000)
+
+			console.log("newTeam after set to nothing  :", newTeam )
+			
+
+		}
+		
+	}, [newTeam])
+	
+	useEffect(() => {
+
+		return 
+		
+	})
+
 
 	return (
 		<div>
@@ -170,4 +198,4 @@ function CreateTeam() {
 	);
 }
 
-export default CreateTeam;
+export default withRouter(CreateTeam);

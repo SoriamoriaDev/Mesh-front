@@ -35,7 +35,7 @@ function TeamsList(props) {
 
 	//console.log("contacts[0] : ", contacts[0])
 
-
+	//console.log("Props in TeamsList : ", props)
 
 
 
@@ -43,6 +43,7 @@ function TeamsList(props) {
 		() => [
 			{
 				Header: ({ selectedFlatRows }) => {
+
 					const selectedRowIds = selectedFlatRows.map(row => row.original.id);
 
 					return (
@@ -104,21 +105,24 @@ function TeamsList(props) {
 								//console.log("row : ", row)
 							}}
 						>
-							{user.starred && user.starred.includes(row.original.id) ? (
+							{/* {user.starred && user.starred.includes(row.original.id) ? (
 								<Icon>star</Icon>
 							) : (
 								<Icon>star_border</Icon>
-							)}
+							)} */}
+
+							<Icon>visibility</Icon>
+							
 						</IconButton>
 
-						<IconButton
+						{/* <IconButton
 							onClick={ev => {
 								ev.stopPropagation();
 								//dispatch(removeContact(row.original.id));
 							}}
 						>
 							<Icon>delete</Icon>
-						</IconButton>
+						</IconButton> */}
 
 					</div>
 				)
@@ -148,8 +152,11 @@ function TeamsList(props) {
 	}, [teams, searchText]);
 
 	function handleOpenDialog(id) {
-		setCurrentUser(teams[id])
-		setOpenDialog(true);
+
+		console.log("handleOpenDialog... id: " , id)
+
+		//setCurrentUser(teams[id])
+		//setOpenDialog(true);
 	}
 
 	function handleCloseDialog() {
@@ -163,7 +170,7 @@ function TeamsList(props) {
 
 	function handleClick(id) {
 		//props.history.push(`/apps/e-commerce/products/${item.id}/${item.handle}`);
-		//console.log("push in history : " , id)
+		console.log("push in history : " , id)
 		props.props.history.push(`/teams/team/${id}`);
 	}
 
@@ -209,10 +216,34 @@ function TeamsList(props) {
 				<TeamsTable
 					columns={columns}
 					data={teamsModified}
+
 					// onRowClick={(ev, row) => {
 					// 	if (row) {
+					// 		//console.log("row click")
 					// 		handleOpenDialog(row.id)
+
 					// 	}
+					// }}
+
+					// onRowClick={(row) => {
+					// 	if (row) {
+					// 		//console.log("row click")
+					// 		handleOpenDialog(row.id)
+
+					// 	}
+					// }}
+
+					// onRowClick={(ev, row) => {
+					// 	if (row) {
+					// 		handleClick(row.id)
+					// 	}
+					// }}
+
+					// onRowClick={(row) => {
+					// 	//ev.stopPropagation();
+					// 	//dispatch(toggleStarredContact(row.original.id));
+					// 	handleClick(row.id);
+					// 	console.log("row : ", row)
 					// }}
 				/>
 

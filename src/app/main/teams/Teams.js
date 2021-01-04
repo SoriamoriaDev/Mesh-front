@@ -99,7 +99,7 @@ function Teams(props) {
 				onClose={handleCloseDialog}
 			>
 
-				<CreateTeam/> 
+				<CreateTeam props={props} /> 
 
 			</Dialog>
 
