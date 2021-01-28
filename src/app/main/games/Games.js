@@ -6,9 +6,10 @@ import GamesMap from './google-map-react/gamesmap';
 import { selectGamesEntities, getGames } from './store/gamesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import reducer from './store';
 import _ from '@lodash';
+import GamesHeader from './GamesHeader';
 
 const useStyles = makeStyles(theme => ({
 	layoutRoot: {}
@@ -17,9 +18,9 @@ const useStyles = makeStyles(theme => ({
 function GamesPage(props) {
 
 
-	//console.log("props in GamesPage", props)
 
 	const classes = useStyles(props);
+	const pageLayout = useRef(null);
 
 	// eslint-disable-next-line 
 	const { t } = useTranslation('GamesPage');
@@ -46,6 +47,8 @@ function GamesPage(props) {
 			classes={{
 				root: classes.layoutRoot
 			}}
+
+			header={<GamesHeader pageLayout={pageLayout}/>}
 
 			content={
 				<div className="p-24">

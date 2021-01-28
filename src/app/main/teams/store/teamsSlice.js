@@ -54,6 +54,13 @@ export const createNewTeam = createAsyncThunk('teams/createTeam', async (team, {
 	return data;
 });
 
+export const clearNewTeam = createAsyncThunk('teams/clearTeam', async (team, { dispatch, getState }) => {
+	
+	dispatch(getTeams());
+
+	return;
+});
+
 export const getTeamPlayers = createAsyncThunk('teams/getTeamPlayers', async (params, { getState }) => {
 
 	//routeParams = routeParams || getState().contactsApp.contacts.routeParams;
@@ -316,7 +323,13 @@ const teamsSlice = createSlice({
 			
 			state.newTeam = action.payload;
 			
-		}
+		},
+		[clearNewTeam.fulfilled]: (state, action) => {
+			
+			state.newTeam = undefined;
+			
+		},
+
 	}
 });
 

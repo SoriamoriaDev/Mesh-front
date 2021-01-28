@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 //import { selectProfile, getProfile } from './store/myprofileSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import reducer from './store';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { getProfile, selectProfile } from './store/myprofileSlice';
 import _ from '@lodash';
 import ProfileCard from './ProfileCard';
+import MyprofileHeader from './MyprofileHeader';
 
 //import _ from '@lodash';
 
@@ -29,6 +30,7 @@ function MyprofilePage(props) {
 	const { t } = useTranslation('MyprofilePage');
 	const dispatch = useDispatch(); 
 	const classes = useStyles(props);
+	const pageLayout = useRef(null);
 
 	const me = useSelector(({ auth }) => auth.user);
 	const userid = me._id
@@ -54,11 +56,7 @@ function MyprofilePage(props) {
 				root: classes.layoutRoot
 			}}
 
-			header={
-				<div className="p-24">
-					<h4>{t('TITLE')}</h4>
-				</div>
-			}
+			header={<MyprofileHeader pageLayout={pageLayout}/>}
 			
 			content={
 				<div className="row">

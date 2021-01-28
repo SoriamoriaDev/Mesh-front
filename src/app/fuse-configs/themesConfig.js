@@ -8,7 +8,8 @@ const themesConfig = { // SIGNET
 			primary: {
 				light: '#C2C2C3',
 				main: '#070825',
-				dark: '#131417'
+				dark: '#131417',
+				darkGrey: '#696969'
 			},
 			secondary: {
 				light: '#B8E1D9',

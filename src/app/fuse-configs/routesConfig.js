@@ -10,9 +10,10 @@ import ComingsoonConfig from 'app/main/comingsoon/ComingsoonConfig';
 import MyprofileConfig from 'app/main/myprofile/MyprofileConfig';
 import PlayersAppConfig from 'app/main/players/PlayersAppConfig';
 import TeamsConfig from 'app/main/teams/TeamsConfig';
+import ChatAppConfig from 'app/main/chat/ChatAppConfig';
 
 
-const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig, TeamsConfig]; //SIGNET
+const routeConfigs = [ExampleConfig, MyprofileConfig, GamesConfig, LoginConfig, LogoutConfig, RegisterConfig, ComingsoonConfig, PlayersAppConfig, TeamsConfig, ChatAppConfig]; //SIGNET
 
 const routes = [
 
@@ -48,6 +49,10 @@ const routes = [
 	{
 		path: '/teams',
 		component: () => <Redirect to="/teams" />
+	},
+	{
+		path: '/chat',
+		component: () => <Redirect to="/chat" />
 	}
 ];
 

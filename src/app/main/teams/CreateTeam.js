@@ -8,14 +8,17 @@ import Typography from '@material-ui/core/Typography';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewTeam } from './store/teamsSlice';
+import { createNewTeam, clearNewTeam } from './store/teamsSlice';
 import { withRouter } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 function CreateTeam(props) {
 
 	// eslint-disable-next-line
 	const { t } = useTranslation('mailApp');
+	const dispatch = useDispatch(); 
 
 	const [name, setName] = useState("")
 	const [city, setCity] = useState("")
@@ -23,18 +26,15 @@ function CreateTeam(props) {
 	const [country, setCountry] = useState("")
 	const [teamID, setTeamID] = useState("")
 
-	const dispatch = useDispatch(); 
-
-	//console.log("props in CreateTeam : ", props)
-
-	
-
 	const me = useSelector(({ auth }) => auth.user);
 	const newTeam = useSelector(({ teams }) => teams.teams.newTeam);
 
+	
 
+	//console.log("props in CreateTeam : ", props)
 	//console.log("me", me)
-	console.log("newTeam", newTeam)
+	//console.log("newTeam", newTeam)
+	
 
 
 	function handleSave() {
@@ -57,6 +57,7 @@ function CreateTeam(props) {
 
 		dispatch(createNewTeam(team));
 		//setTimeout( () => props.history.push(`/teams/team/${newTeam._id}`) , 3000)
+		//props.history.push(`/teams/team/${newTeam._id}`)
 
 
 	}
@@ -65,25 +66,36 @@ function CreateTeam(props) {
 		
 		if(newTeam !== undefined){
 
-			console.log("newTeamID not equal to undefined")
+			swal("Bim !", "A new team was founded :)", {button: false, icon: "success",} );
 
 			setTimeout( () => {
+
 				props.history.push(`/teams/team/${newTeam._id}`)
+				dispatch(clearNewTeam());
+				
 
-			} , 3000)
-
-			console.log("newTeam after set to nothing  :", newTeam )
+			} , 2000)
 			
 
 		}
 		
 	}, [newTeam])
-	
-	useEffect(() => {
 
-		return 
+	// useEffect(() => {
 		
-	})
+		
+
+	// 	props.history.push(`/teams/team/${teamID}`)
+			
+
+		
+	// }, [dispatch])
+	
+	// useEffect(() => {
+
+	// 	return 
+		
+	// })
 
 
 	return (

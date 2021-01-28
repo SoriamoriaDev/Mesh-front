@@ -74,7 +74,6 @@ function GamesMap(data) {
 
 	return (
 		<div className="w-full">
-			<Typography className="h2 mb-16">Games around you</Typography>
 			
 			<div style={{ height: '70vh', width: '100%' }}>
 				<GoogleMap

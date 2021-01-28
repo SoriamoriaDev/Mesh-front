@@ -49,6 +49,14 @@ const navigationConfig = [  // SIGNET
 				url: '/teams'
 			},
 			{
+				id: 'chat',
+				title: 'Example',
+				translate: 'Chat',
+				type: 'item',
+				icon: 'chat',
+				url: '/chat'
+			},
+			{
 				id: 'transfer',
 				title: 'Example',
 				translate: 'Transfer market',
@@ -63,15 +71,8 @@ const navigationConfig = [  // SIGNET
 				type: 'item',
 				icon: 'place',
 				url: '/comingsoon'
-			},
-			{
-				id: 'chat',
-				title: 'Example',
-				translate: 'Chat',
-				type: 'item',
-				icon: 'chat',
-				url: '/comingsoon'
 			}
+			
 		]
 	}
 ];
