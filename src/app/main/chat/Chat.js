@@ -94,8 +94,8 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-//const server = "http://localhost:4020";
-const server = process.env.REACT_APP_API_URL
+const server = process.env.NODE_ENV === 'dev' ? "http://localhost:4020" : process.env.REACT_APP_API_URL;
+
 const socket = socketClient (server);
 
 function Chat(props) {
@@ -130,12 +130,18 @@ function Chat(props) {
 
 		socket.on('from back', message => {
 	
-            setChat([...chat, message])
+            setChat(chat => [...chat, message])
+
             scrollToBottom();
 			
-		});
+        });
+        
+        return () => {
+            socket.off('from back');
+        };
 
-	});
+
+	}, []);
 
 	function scrollToBottom() {
 		chatRef.current.scrollTop = chatRef.current.scrollHeight;
@@ -188,7 +194,7 @@ function Chat(props) {
 
 	}
 
-	//console.log("chat : ", chat)
+	console.log("chat : ", chat)
     //console.log("user : ", user)
     //console.log("contacts : ", contacts)
     

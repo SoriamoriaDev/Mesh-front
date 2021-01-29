@@ -15,7 +15,7 @@ import AppContext from './AppContext';
 import { Auth } from './auth';
 import routes from './fuse-configs/routesConfig';
 import store from './store';
-//import socketClient  from "socket.io-client"
+
 
 const jss = create({
 	...jssPreset(),
@@ -25,16 +25,10 @@ const jss = create({
 
 const generateClassName = createGenerateClassName();
 
-//const server = "http://localhost:4020";
 
 const App = () => { //SIGNET
 
-	// const socket = socketClient (server);
-
-	// socket.on('connection', () => {
-
-    //     console.log(`I'm connected with the back-end`);	
-	// });
+	
 	
 	return (
 		<AppContext.Provider
