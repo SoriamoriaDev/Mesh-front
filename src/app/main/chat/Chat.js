@@ -11,8 +11,10 @@ import moment from 'moment/moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from './store/contactsSlice';
-import { sendMessage } from './store/chatSlice';
 import socketClient  from "socket.io-client"
+
+const colors = ["7209b7","560bad","480ca8","3a0ca3", "f72585","b5179e", "3f37c9","4361ee","4895ef","4cc9f0"]
+
 
 const useStyles = makeStyles(theme => ({
 	messageRow: {
@@ -100,17 +102,26 @@ const socket = socketClient (server);
 
 function Chat(props) {
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const classes = useStyles(props);
+	const chatRef = useRef(null);
+
+    const user = useSelector(({ auth }) => auth.user);
+    const chatReceived = useSelector(({ chatApp }) => chatApp.chat);
+
+    const [chat, setChat] = useState([])
+	const [messageText, setMessageText] = useState('');
+
+
+
 
 	const contacts = useSelector(selectContacts);
 	const selectedContactId = useSelector(({ chatApp }) => chatApp.contacts.selectedContactId);
-	const chatReceived = useSelector(({ chatApp }) => chatApp.chat);
-	const user = useSelector(({ auth }) => auth.user);
-	const [chat, setChat] = useState([])
-	const [messageText, setMessageText] = useState('');
 	
-	const classes = useStyles(props);
-	const chatRef = useRef(null);
+	
+	
+	
+	
 	
 
 	useEffect(() => {
@@ -194,8 +205,8 @@ function Chat(props) {
 
 	}
 
-	console.log("chat : ", chat)
-    //console.log("user : ", user)
+	//console.log("chat : ", chat)
+    console.log("user : ", user)
     //console.log("contacts : ", contacts)
     
 
@@ -229,10 +240,10 @@ function Chat(props) {
 										/>
 									)} */}
 
-									{shouldShowContactAvatar(item, i) && (
+									{shouldShowContactAvatar(item, i) && isLastMessageOfGroup(item, i) && (
 										<Avatar
 											className="avatar absolute ltr:left-0 rtl:right-0 m-0 -mx-32"
-											src="/assets/images/avatars/avatar.png"
+											src="/assets/images/avatars/maradona.jpg"
 										/>
 									)}
 
@@ -242,14 +253,19 @@ function Chat(props) {
 										src="/assets/images/avatars/avatar.png"
 									/> */}
 
+                                    
+
 									<div className="bubble flex relative items-center justify-center p-12 max-w-full shadow-1">
-										<div className="leading-tight whitespace-pre-wrap">{item.content}</div>
+                                        
+                                        <div className="leading-tight whitespace-pre-wrap" style={{floatLeft: "auto"}}>{!contact && isFirstMessageOfGroup(item, i) ? <div style={{color: "yellow", marginBottom: "5px", fontWeight: "bold"}}>Diego</div> : "" }{item.content}</div>
+
 										<Typography
 											className="time absolute hidden w-full text-11 mt-8 -mb-24 ltr:left-0 rtl:right-0 bottom-0 whitespace-no-wrap"
 											color="textSecondary"
 										>
 											{moment(item.createdAt).format('dddd DD/MM/YYYY HH:mm')}
 										</Typography>
+
 									</div>
 								</div>
 							);

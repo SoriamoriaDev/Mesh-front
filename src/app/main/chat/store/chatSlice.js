@@ -5,17 +5,8 @@ import { closeMobileChatsSidebar } from './sidebarsSlice';
 import { updateUserChatList } from './userSlice';
 
 export const getMessages = createAsyncThunk('chatApp/chat/getMessages',async (params, { dispatch, getState }) => {
-		
-	//const { id: userId } = getState().chatApp.user;
-
-	//const response = await axios.get(`${process.env.REACT_APP_API_URL}/team/teaminfo/${params.chatRoom_id}`, { params: {contactId,userId} });
-	//const response = await axios.get(`${process.env.REACT_APP_API_URL}/team/teaminfo/${params.chatRoom_id}` );
+	
 	const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/messages/0001` );
-
-	//console.log("response in getMessages : ", response.data)
-
-	//dispatch(setSelectedContactId(contactId));
-	//dispatch(updateUserChatList(userChatList));
 
 	return response.data;
 
@@ -68,14 +59,6 @@ const chatSlice = createSlice({
 		[sendMessage.fulfilled]: (state, action) => {
 			state.dialog = [...state.dialog, action.payload];
 		},
-		// [getMessages.fulfilled]: (state, action) => {
-
-		// 	console.log("state :", state)
-		// 	console.log("action :", action)
-			
-		// 	state.messages = action.payload;
-			
-		// },
 		[getMessages.fulfilled]: (state, action) => action.payload
 	}
 });

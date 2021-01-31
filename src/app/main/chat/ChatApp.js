@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
 		//minHeight: 0,
 		maxHeight: '100%',
 		//overflow: 'hidden'
-      	width: 500,
+      	width: 350,
       	//height: this.state.contentSize.height,
 	},
 	drawerPaper: {
