@@ -140,7 +140,7 @@ function ChatApp(props) {
 
 		dispatch(getMessages());
 		//dispatch(getUserData());
-		//dispatch(getContacts());
+		dispatch(getContacts());
 
 	}, [dispatch]);
 

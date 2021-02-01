@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import moment from 'moment/moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from './store/contactsSlice';
+import { selectContacts, selectContactsEntities } from './store/contactsSlice';
 import socketClient  from "socket.io-client"
 
 const colors = ["7209b7","560bad","480ca8","3a0ca3", "f72585","b5179e", "3f37c9","4361ee","4895ef","4cc9f0"]
@@ -112,16 +112,7 @@ function Chat(props) {
     const [chat, setChat] = useState([])
 	const [messageText, setMessageText] = useState('');
 
-
-
-
-	const contacts = useSelector(selectContacts);
-	const selectedContactId = useSelector(({ chatApp }) => chatApp.contacts.selectedContactId);
-	
-	
-	
-	
-	
+	const contacts = useSelector(selectContactsEntities);
 	
 
 	useEffect(() => {
@@ -217,8 +208,7 @@ function Chat(props) {
 				{chat && chat.length > 0 ? (
 					<div className="flex flex-col pt-16 px-16 ltr:pl-56 rtl:pr-56 pb-40">
 						{chat.map((item, i) => {
-							const contact =
-								item.user_id === user._id ? user : contacts.find(_contact => _contact.id === item.user_id);
+                            const contact = item.user_id === user._id ? user : contacts.find(_contact => _contact._id === item.user_id);
 							return (
 								<div
 									//key={item.time}
@@ -243,13 +233,13 @@ function Chat(props) {
 									{shouldShowContactAvatar(item, i) && isLastMessageOfGroup(item, i) && (
 										<Avatar
 											className="avatar absolute ltr:left-0 rtl:right-0 m-0 -mx-32"
-											src="/assets/images/avatars/maradona.jpg"
+											src={contact.data.photoURL}
 										/>
 									)}
 
 									{/* <Avatar
 										className="avatar absolute ltr:left-0 rtl:right-0 m-0 -mx-32"
-										//src={contact.avatar}
+										//src={contact.data.photoURL}
 										src="/assets/images/avatars/avatar.png"
 									/> */}
 
@@ -257,7 +247,7 @@ function Chat(props) {
 
 									<div className="bubble flex relative items-center justify-center p-12 max-w-full shadow-1">
                                         
-                                        <div className="leading-tight whitespace-pre-wrap" style={{floatLeft: "auto"}}>{!contact && isFirstMessageOfGroup(item, i) ? <div style={{color: "yellow", marginBottom: "5px", fontWeight: "bold"}}>Diego</div> : "" }{item.content}</div>
+                                        <div className="leading-tight whitespace-pre-wrap" style={{floatLeft: "auto"}}>{ contact._id !== user._id && isFirstMessageOfGroup(item, i) ? <div style={{color: "yellow", marginBottom: "5px", fontWeight: "bold"}}>{contact.f_name}</div> : "" }{item.content}</div>
 
 										<Typography
 											className="time absolute hidden w-full text-11 mt-8 -mb-24 ltr:left-0 rtl:right-0 bottom-0 whitespace-no-wrap"
