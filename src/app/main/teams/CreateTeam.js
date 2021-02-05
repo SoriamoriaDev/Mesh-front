@@ -105,7 +105,7 @@ function CreateTeam(props) {
 				<AppBar position="static">
 					<Toolbar className="flex w-full">
 						<Typography variant="subtitle1" color="inherit">
-							Found a new team
+							Start a new team
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -114,18 +114,7 @@ function CreateTeam(props) {
 
 					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
 
-						<TextField
-							className="mt-8 mb-16"
-							label="Name"
-							// autoFocus
-							value={name}
-							onChange={e => setName(e.target.value)}
-							variant="outlined"
-							fullWidth
-							required
-						/>
-
-						<TextField
+                        <TextField
 							className="mt-8 mb-16"
 							label="Team logo"
 							id="subject"
@@ -136,6 +125,19 @@ function CreateTeam(props) {
 							fullWidth
 							//required
 						/>
+                        
+                        <TextField
+							className="mt-8 mb-16"
+							label="Name"
+							// autoFocus
+							value={name}
+							onChange={e => setName(e.target.value)}
+							variant="outlined"
+							fullWidth
+							required
+						/>
+
+						
 
 						<TextField
 							className="mt-8 mb-16"

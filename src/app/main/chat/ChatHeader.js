@@ -7,10 +7,10 @@ import React from 'react';
 
 
 
-function ContactsHeader(props) {
+function ChatHeader(props) {
 
 
-	//console.log("TeamsHeader")
+	console.log("ChatHeader")
 
 	return (
 		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
@@ -28,46 +28,18 @@ function ContactsHeader(props) {
 
 				<div className="flex items-center">
 					<FuseAnimate animation="transition.expandIn" delay={300}>
-						<Icon className="text-32">security</Icon>
+						<Icon className="text-32">chat</Icon>
 					</FuseAnimate>
 					<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 						<Typography variant="h6" className="mx-12 hidden sm:flex">
-							Teams
+							Global chat
 						</Typography>
 					</FuseAnimate>
 				</div>
 			</div>
 
-			{/* <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
-				<ThemeProvider theme={mainTheme}>
-					<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-						<Paper
-							className="flex p-4 items-center w-full max-w-512 h-48 px-8 py-4 rounded-8"
-							elevation={1}
-						>
-							<Icon color="action">search</Icon>
-
-							<Input
-								placeholder="Search for anything"
-								className="flex flex-1 px-16"
-								disableUnderline
-								fullWidth
-								value={searchText}
-								inputProps={{
-									'aria-label': 'Search'
-								}}
-								onChange={ev => dispatch(setContactsSearchText(ev))}
-							/>
-						</Paper>
-					</FuseAnimate>
-				</ThemeProvider>
-			</div> */}
-
-
-
-
 		</div>
 	);
 }
 
-export default ContactsHeader;
+export default ChatHeader;

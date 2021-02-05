@@ -12,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Chat from './Chat';
 import ChatsSidebar from './ChatsSidebar';
@@ -31,6 +31,8 @@ import {
 
 import UserSidebar from './UserSidebar';
 import { getMessages } from './store/chatSlice';
+import ChatHeader from './ChatHeader';
+import FusePageSimple from '@fuse/core/FusePageSimple';
 
 
 const drawerWidth = 400;
@@ -130,8 +132,7 @@ function ChatApp(props) {
 	const contactSidebarOpen = useSelector(({ chatApp }) => chatApp.sidebars.contactSidebarOpen);
 	const selectedContact = useSelector(state => selectContactById(state, state.chatApp.contacts.selectedContactId));
 
-	
-
+    const pageLayout = useRef(null);
 	const classes = useStyles(props);
 
 
@@ -139,217 +140,59 @@ function ChatApp(props) {
 	useEffect(() => {
 
 		dispatch(getMessages());
-		//dispatch(getUserData());
 		dispatch(getContacts());
 
 	}, [dispatch]);
 
 	return (
-		<div className={clsx(classes.root)}>
 
-			<div  className={clsx(classes.contentCardWrapper, 'container')} style={{margin: 0, maxWidth: 600}}>
-				<div id="ici" className={classes.contentCard}>
-					{/* <Hidden mdUp>
-						<Drawer
-							className="h-full absolute z-20"
-							variant="temporary"
-							anchor="left"
-							open={mobileChatsSidebarOpen}
-							onClose={() => dispatch(closeMobileChatsSidebar())}
-							classes={{
-								paper: clsx(classes.drawerPaper, 'absolute ltr:left-0 rtl:right-0')
-							}}
-							style={{ position: 'absolute' }}
-							ModalProps={{
-								keepMounted: true,
-								disablePortal: true,
-								BackdropProps: {
-									classes: {
-										root: 'absolute'
-									}
-								}
-							}}
-						>
-							<ChatsSidebar />
-						</Drawer>
-					</Hidden>
-					<Hidden smDown>
-						<Drawer
-							className="h-full z-20"
-							variant="permanent"
-							open
-							classes={{
-								paper: classes.drawerPaper
-							}}
-						>
-							<ChatsSidebar />
-						</Drawer>
-					</Hidden>
-					<Drawer
-						className="h-full absolute z-30"
-						variant="temporary"
-						anchor="left"
-						open={userSidebarOpen}
-						onClose={() => dispatch(closeUserSidebar())}
-						classes={{
-							paper: clsx(classes.drawerPaper, 'absolute left-0')
-						}}
-						style={{ position: 'absolute' }}
-						ModalProps={{
-							keepMounted: false,
-							disablePortal: true,
-							BackdropProps: {
-								classes: {
-									root: 'absolute'
-								}
-							}
-						}}
-					>
-						<UserSidebar />
-					</Drawer> */}
+        <FusePageSimple
+				classes={{
+					contentWrapper: 'p-0 sm:p-24 h-full',
+					content: 'flex flex-col h-full',
+					leftSidebar: 'w-256 border-0',
+					header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
+					wrapper: 'min-h-0'
+				}}
+                header={<ChatHeader pageLayout={pageLayout} />}
+                
+                content={
 
-					{/* <main className={clsx(classes.contentWrapper, 'z-10')}>
-						{!chat ? (
-							<div className="flex flex-col flex-1 items-center justify-center p-24">
-								<Paper className="rounded-full p-48 md:p-64">
-									<Icon className="block text-64 md:text-128" color="secondary">
-										chat
-									</Icon>
-								</Paper>
-								<Typography variant="h6" className="mt-24 mb-12 text-32 font-700">
-									Chat App
-								</Typography>
-								<Typography
-									className="hidden md:flex px-16 pb-24 text-16 text-center"
-									color="textSecondary"
-								>
-									Select a contact to start a conversation!..
-								</Typography>
-								<Button
-									variant="outlined"
-									color="primary"
-									className="flex md:hidden normal-case"
-									onClick={() => dispatch(openMobileChatsSidebar())}
-								>
-									Select a contact to start a conversation!..
-								</Button>
-							</div>
-						) : (
-							<>
-								<AppBar className="w-full" position="static" elevation={1}>
-									<Toolbar className="px-16">
-										<IconButton
-											color="inherit"
-											aria-label="Open drawer"
-											onClick={() => dispatch(openMobileChatsSidebar())}
-											className="flex md:hidden"
-										>
-											<Icon>chat</Icon>
-										</IconButton>
-										<div
-											className="flex items-center cursor-pointer"
-											onClick={() => dispatch(openContactSidebar())}
-											onKeyDown={() => dispatch(openContactSidebar())}
-											role="button"
-											tabIndex={0}
-										>
-											<div className="relative mx-8">
-												<div className="absolute right-0 bottom-0 -m-4 z-10">
-													<StatusIcon status={selectedContact.status} />
-												</div>
+                    <div className={clsx(classes.root)}>
 
-												<Avatar src={selectedContact.avatar} alt={selectedContact.name}>
-													{!selectedContact.avatar || selectedContact.avatar === ''
-														? selectedContact.name[0]
-														: ''}
-												</Avatar>
-											</div>
-											<Typography color="inherit" className="text-18 font-600 px-4">
-												{selectedContact.name}
-											</Typography>
-										</div>
-									</Toolbar>
-								</AppBar>
+                        <div  className={clsx(classes.contentCardWrapper, 'container')} style={{margin: 0, maxWidth: 600}}>
+                            
+                            <div id="ici" className={classes.contentCard}>
 
-								<div className={classes.content}>
-									<Chat className="flex flex-1 z-10" />
-								</div>
-							</>
-						)}
-					</main> */}
+                                <main className={clsx(classes.contentWrapper, 'z-10')}>
+                                    
+                                        <>
+                                            <div className={classes.content}>
+                                                <Chat className="flex flex-1 z-10" />
+                                            </div>
+                                        </>
+                            
+                                </main>
 
-					<main className={clsx(classes.contentWrapper, 'z-10')}>
-						
-							<>
-								{/* <AppBar className="w-full" position="static" elevation={1}>
-									<Toolbar className="px-16">
-										<IconButton
-											color="inherit"
-											aria-label="Open drawer"
-											onClick={() => dispatch(openMobileChatsSidebar())}
-											className="flex md:hidden"
-										>
-											<Icon>chat</Icon>
-										</IconButton>
-										<div
-											className="flex items-center cursor-pointer"
-											onClick={() => dispatch(openContactSidebar())}
-											onKeyDown={() => dispatch(openContactSidebar())}
-											role="button"
-											tabIndex={0}
-										>
-											<div className="relative mx-8">
-												<div className="absolute right-0 bottom-0 -m-4 z-10">
-													<StatusIcon status={selectedContact.status} />
-												</div>
+                            </div>
 
-												<Avatar src={selectedContact.avatar} alt={selectedContact.name}>
-													{!selectedContact.avatar || selectedContact.avatar === ''
-														? selectedContact.name[0]
-														: ''}
-												</Avatar>
-											</div>
-											<Typography color="inherit" className="text-18 font-600 px-4">
-												{selectedContact.name}
-											</Typography>
-										</div>
-									</Toolbar>
-								</AppBar> */}
+                        </div>
 
-								<div className={classes.content}>
-									<Chat className="flex flex-1 z-10" />
-								</div>
-							</>
-				
-					</main>
+                    </div>
 
-					{/* <Drawer
-						className="h-full absolute z-30"
-						variant="temporary"
-						anchor="right"
-						open={contactSidebarOpen}
-						onClose={() => dispatch(closeContactSidebar())}
-						classes={{
-							paper: clsx(classes.drawerPaper, 'absolute ltr:right-0 rtl:left-0')
-						}}
-						style={{ position: 'absolute' }}
-						ModalProps={{
-							keepMounted: true,
-							disablePortal: true,
-							BackdropProps: {
-								classes: {
-									root: 'absolute'
-								}
-							}
-						}}
-					>
-						<ContactSidebar />
-					</Drawer> */}
+                }
+                
 
 
-				</div>
-			</div>
-		</div>
+
+
+
+				sidebarInner
+				ref={pageLayout}
+				innerScroll
+			/>
+
+		
 	);
 }
 

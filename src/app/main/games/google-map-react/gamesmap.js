@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { meshMapStyle } from 'app/mesh-files/meshStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGPSlocationEntities } from 'app/fuse-layouts/layout1/components/store/GPSlocationSlice';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 
 
@@ -49,21 +50,23 @@ function GamesMap(data) {
 		
 		if(games && games.length > 0){
 			for (let i = 0; i < games.length; i++) {
+
 				// eslint-disable-next-line 
 				let marker = new maps.Marker({
-				position: {lat : games[i].latitude, lng : games[i].longitude},
-				map,
-				title: games[i].venue_name,
-				draggable: false,
-				icon:{
-					path: "M256,0C148.48,0,61,87.48,61,195c0,42.55,13.44,82.98,38.9,116.9l144.08,194.051c0.36,0.47,0.91,0.65,1.31,1.07 c7.2,7.71,17.59,5.77,22.72-1.07C309.5,450.591,385.55,347.2,414.79,308.2c0,0,0.01-0.03,0.02-0.05l0.18-0.24 C438.55,274.81,451,235.77,451,195C451,87.48,363.52,0,256,0z M256,300.2c-57.89,0-105.2-47.31-105.2-105.2S198.11,89.8,256,89.8 S361.2,137.11,361.2,195S313.89,300.2,256,300.2z",
-					fillColor: "#55e7b5",
-					fillOpacity: 1,
-					anchor: new google.maps.Point(256, 512),
-					strokeWeight: 0,
-					scale : 0.1
-					}
-				})
+                    position: {lat : games[i].latitude, lng : games[i].longitude},
+                    map,
+                    title: games[i].venue_name,
+                    draggable: false,
+                    icon:{
+                        path: "M256,0C148.48,0,61,87.48,61,195c0,42.55,13.44,82.98,38.9,116.9l144.08,194.051c0.36,0.47,0.91,0.65,1.31,1.07 c7.2,7.71,17.59,5.77,22.72-1.07C309.5,450.591,385.55,347.2,414.79,308.2c0,0,0.01-0.03,0.02-0.05l0.18-0.24 C438.55,274.81,451,235.77,451,195C451,87.48,363.52,0,256,0z M256,300.2c-57.89,0-105.2-47.31-105.2-105.2S198.11,89.8,256,89.8 S361.2,137.11,361.2,195S313.89,300.2,256,300.2z",
+                        fillColor: "#55e7b5",
+                        fillOpacity: 1,
+                        anchor: new google.maps.Point(256, 512),
+                        strokeWeight: 0,
+                        scale : 0.1
+                        }
+                })
+                
 			}
 		}
 	}
@@ -75,7 +78,19 @@ function GamesMap(data) {
 	return (
 		<div className="w-full">
 			
-			<div style={{ height: '70vh', width: '100%' }}>
+			<div id="ici" style={{ height: '70vh', width: '100%' }}>
+
+                <div style={{
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    zIndex: 1
+                }}>     
+                        <AddCircleOutlineIcon/>
+                </div>
+                
+
 				<GoogleMap
 					bootstrapURLKeys={{key: process.env.REACT_APP_GOOGLE_MAP_KEY}}
 					yesIWantToUseGoogleMapApiInternals
@@ -84,11 +99,16 @@ function GamesMap(data) {
 					//defaultCenter={[coord.lat, coord.lng]}
 					//defaultCenter={[43.269909, 5.395969]}
 					center={ isLocated ? [realPosition.lat, realPosition.lng] : [StandardPosition.lat, StandardPosition.lng]}
-					options={{ styles: meshMapStyle}}
+					options={{ zIndex: 0, styles: meshMapStyle}}
 					onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
 				>
 					{/* <Marker text="You are here" lat="43.553524" lng="7.001037" /> */}
 				</GoogleMap>
+
+                
+                 
+
+
 			</div>
 		</div>
 	);

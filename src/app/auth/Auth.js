@@ -21,6 +21,7 @@ class Auth extends Component {
 			// this.auth0Check(),
 			this.jwtCheck()
 		]).then(() => {
+            console.log("setState in Auth")
 			this.setState({ waitAuthCheck: false }); // PROBLEM TO FIX
 		});
 	}

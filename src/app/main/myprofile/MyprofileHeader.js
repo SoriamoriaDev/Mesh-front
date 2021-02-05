@@ -13,7 +13,7 @@ function MyprofileHeader(props) {
 	return (
 		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
 			<div className="flex flex-shrink items-center sm:w-224">
-				<Hidden lgUp>
+				{/* <Hidden lgUp>
 					<IconButton
 						onClick={ev => {
 							props.pageLayout.current.toggleLeftSidebar();
@@ -22,7 +22,7 @@ function MyprofileHeader(props) {
 					>
 						<Icon>perm_identity</Icon>
 					</IconButton>
-				</Hidden>
+				</Hidden> */}
 
 				<div className="flex items-center">
 					<FuseAnimate animation="transition.expandIn" delay={300}>

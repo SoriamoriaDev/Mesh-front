@@ -112,20 +112,20 @@ function Chat(props) {
     const [chat, setChat] = useState([])
 	const [messageText, setMessageText] = useState('');
 
-	const contacts = useSelector(selectContactsEntities);
-	
+    const contacts = useSelector(selectContactsEntities);
+    
 
 	useEffect(() => {
 
 		if (chatReceived) {
 
-			setChat(chatReceived)
+            setChat(chatReceived)
+        }
+        
+    }, [chatReceived]);
+    
 
-			scrollToBottom();
-			
-		}
-
-	}, [chatReceived]);
+    useEffect(scrollToBottom, [chat]);
 
 
 	useEffect(() => {
@@ -146,15 +146,8 @@ function Chat(props) {
 	}, []);
 
 	function scrollToBottom() {
-		chatRef.current.scrollTop = chatRef.current.scrollHeight;
+		chatRef.current.scrollTop = chatRef.current.scrollHeight
 	}
-
-	// function shouldShowContactAvatar(item, i) {
-	// 	return (
-	// 		item.user_id === selectedContactId &&
-	// 		((chat[i + 1] && chat[i + 1].user_id !== selectedContactId) || !chat[i + 1])
-	// 	);
-    // }
     
 	function shouldShowContactAvatar(item, i) {
 		return (
@@ -197,7 +190,7 @@ function Chat(props) {
 	}
 
 	//console.log("chat : ", chat)
-    console.log("user : ", user)
+    //console.log("user : ", user)
     //console.log("contacts : ", contacts)
     
 
@@ -205,7 +198,7 @@ function Chat(props) {
 		<div className={clsx('flex flex-col relative', props.className)}>
 			
 			<FuseScrollbars ref={chatRef} className="flex flex-1 flex-col overflow-y-auto">
-				{chat && chat.length > 0 ? (
+				{chat && contacts && chat.length > 0 ? (
 					<div className="flex flex-col pt-16 px-16 ltr:pl-56 rtl:pr-56 pb-40">
 						{chat.map((item, i) => {
                             const contact = item.user_id === user._id ? user : contacts.find(_contact => _contact._id === item.user_id);
@@ -273,6 +266,7 @@ function Chat(props) {
 						</Typography>
 					</div>
 				)}
+
 			</FuseScrollbars>
 
 
