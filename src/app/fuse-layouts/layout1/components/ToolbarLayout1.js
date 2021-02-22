@@ -29,31 +29,33 @@ function ToolbarLayout1(props) {
 
 
 	// ************** GET YOUR CURRENT GPS POSITION ********************  // SIGNET
-	var crd;
+	// var crd;
 
-	var options = {
-		enableHighAccuracy: true,
-		timeout: 5000,
-		maximumAge: 0
-	};
+	// var options = {
+	// 	enableHighAccuracy: true,
+	// 	timeout: 5000,
+	// 	maximumAge: 0
+	// };
 
-	function success(pos) {
+	// function success(pos) {
 
-		//console.log("pos", pos)
+	// 	//console.log("pos", pos)
 
-		crd = pos.coords;
+	// 	crd = pos.coords;
 
-		const result = {lat : crd.latitude, lng : crd.longitude}
+    //     const result = {lat : crd.latitude, lng : crd.longitude}
+        
+    //     console.log("GPS Result : ", result)
 		
-		dispatch(sendGPSLocation(result)); // <--- IMPORTANT
+	// 	dispatch(sendGPSLocation(result)); // <--- IMPORTANT
 
-	}
+	// }
 
-	function error(err) {
-		console.warn(`ERROR(${err.code}): ${err.message}`);
-	}
+	// function error(err) {
+	// 	console.warn(`ERROR(${err.code}): ${err.message}`);
+	// }
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+	// navigator.geolocation.getCurrentPosition(success, error, options);
 
 	// *****************************************************************
 

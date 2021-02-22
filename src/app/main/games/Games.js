@@ -6,27 +6,38 @@ import GamesMap from './google-map-react/gamesmap';
 import { selectGamesEntities, getGames } from './store/gamesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import reducer from './store';
 import _ from '@lodash';
 import GamesHeader from './GamesHeader';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
+import { Dialog } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-	layoutRoot: {}
+    layoutRoot: {},
+    addButton: {
+        position: 'absolute',
+        right: 12,
+        top: 50,
+        zIndex: 99
+    }
 }));
+
 
 function GamesPage(props) {
 
 
-
+    const dispatch = useDispatch();
 	const classes = useStyles(props);
 	const pageLayout = useRef(null);
 
 	// eslint-disable-next-line 
 	const { t } = useTranslation('GamesPage');
 
-	const dispatch = useDispatch();
-	const games = useSelector(selectGamesEntities); 
+    const games = useSelector(selectGamesEntities); 
+    const [openDialog, setOpenDialog] = useState(0);
 
 	//console.log("Games received : ", games)
 
@@ -36,26 +47,63 @@ function GamesPage(props) {
 
 		dispatch(getGames());
 
-	}, [dispatch]);
+    }, [dispatch]);
+    
+    function handleOpenDialog() {
+		//setCurrentUser(teams[id])
+		console.log("Open dialog...")
+		setOpenDialog(openDialog + 1);
+	}
+
+	function handleCloseDialog() {
+		setOpenDialog(false);
+	}
 
 	if (_.isEmpty(games)) {   
 		return null;
-	}	
+    }	
+    
+    console.log("openDialog : ", openDialog)
 
 	return (
-		<FusePageSimple
-			classes={{
-				root: classes.layoutRoot
-			}}
 
-			header={<GamesHeader pageLayout={pageLayout}/>}
+        <>
+            <FusePageSimple
+                classes={{
+                    root: classes.layoutRoot
+                }}
 
-			content={
-				<div className="p-24">
-					<GamesMap data={games} props={props}/>
-				</div>
-			}
-		/>
+                header={<GamesHeader pageLayout={pageLayout}/>}
+
+                content={
+                    <div className="p-24">
+                        <GamesMap data={games} createGame={openDialog}/>
+                    </div>
+                }
+            />
+
+            <FuseAnimate animation="transition.expandIn" delay={500}>
+                <Fab
+                    color="secondary"
+                    aria-label="add"
+                    className={classes.addButton}
+                    onClick={() => handleOpenDialog()}
+                >
+                    <Icon>add</Icon>
+                </Fab>
+            </FuseAnimate>
+
+            {/* <Dialog
+                open={openDialog}
+                onClose={handleCloseDialog}
+            >
+
+                <CreateTeam props={props} /> 
+
+            </Dialog> */}
+
+            </>
+
 	);
 }
 

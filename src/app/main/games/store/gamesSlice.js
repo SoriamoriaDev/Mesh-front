@@ -9,6 +9,21 @@ export const getGames = createAsyncThunk('games/getGames', async () => {   // SI
 	return data;
 });
 
+export const createNewGame = createAsyncThunk('games/createGame', async (game, { dispatch, getState }) => {
+	
+	//routeParams = routeParams || getState().contactsApp.contacts.routeParams;
+	//console.log("routeParams in slice", routeParams)
+
+	const response = await axios.post((`${process.env.REACT_APP_API_URL}/event/create`), { game });
+
+	const data = await response.data.data;
+	dispatch(getGames());
+
+	console.log("createGame - Data back from DB : ", response.data)
+
+	return data;
+});
+
 const gamesAdapter = createEntityAdapter({});
 
 export const { selectEntities: selectGamesEntities, selectById: selectGameById } = gamesAdapter.getSelectors(
@@ -21,13 +36,16 @@ const gamesSlice = createSlice({
 	reducers: {// standard reducer logic, with auto-generated action types per reducer
 	},
 	extraReducers: {
-		// Add reducers for additional action types here, and handle loading state as needed
+
 		[getGames.fulfilled]: (state, action) => {
-			// Add user to the state array
-			//state.entities.push(action.payload)
+
 			state.entities = action.payload
-			//state.games = action.payload
-		  }
+        },
+        [createNewGame.fulfilled]: (state, action) => {
+        
+            state.newGame = action.payload;
+			
+		},
     }
 });
 

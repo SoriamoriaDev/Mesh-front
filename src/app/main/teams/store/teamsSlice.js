@@ -49,7 +49,7 @@ export const createNewTeam = createAsyncThunk('teams/createTeam', async (team, {
 	const data = await response.data.data;
 	dispatch(getTeams());
 
-	console.log("createTeam - Data back from DB : ", response.data)
+	//console.log("createTeam - Data back from DB : ", response.data)
 
 	return data;
 });
