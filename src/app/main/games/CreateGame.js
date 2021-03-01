@@ -51,12 +51,15 @@ function CreateGame(props) {
             date: date,
             public: isPublic,
             status: "open", 
-            owner: me._id,
+            creator: me._id,
             min_players: min_players,
-            max_players: max_players
+            max_players: max_players,
+            user_confirm: [{ user_id: me._id }]
 
 
 		}
+
+        console.log("game record going to the back: ", game)
 
 		dispatch(createNewGame(game));
 

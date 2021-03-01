@@ -46,6 +46,12 @@ export const meshMapStyle = //SIGNET
 		}
 	  ]
 	},
+    { 
+        "featureType": "administrative.neighborhood", 
+        "stylers": [ 
+          { "visibility": "off" } 
+        ] 
+      } ,
 	{
 	  "featureType": "poi",
 	  "elementType": "geometry",

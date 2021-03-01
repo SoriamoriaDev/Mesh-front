@@ -19,7 +19,31 @@ export const createNewGame = createAsyncThunk('games/createGame', async (game, {
 	const data = await response.data.data;
 	dispatch(getGames());
 
-	console.log("createGame - Data back from DB : ", response.data)
+	//console.log("createGame - Data back from DB : ", response.data)
+
+	return data;
+});
+
+export const getGamePlayers = createAsyncThunk('games/gamePlayers', async (players, { dispatch, getState }) => {
+	
+	const response = await axios.post((`${process.env.REACT_APP_API_URL}/users/listofusers`), { players });
+
+	const data = await response.data.data;
+	//dispatch(getGames());
+
+	//console.log("getGamePlayers - Data back from DB : ", response.data)
+
+	return data;
+});
+
+export const clearGamePlayers = createAsyncThunk('games/clearGamePlayers', async () => {
+	
+	//const response = await axios.post((`${process.env.REACT_APP_API_URL}/users/listofusers`), { players });
+
+	const data = []
+	//dispatch(getGames());
+
+	//console.log("getGamePlayers - Data back from DB : ", response.data)
 
 	return data;
 });
@@ -44,6 +68,16 @@ const gamesSlice = createSlice({
         [createNewGame.fulfilled]: (state, action) => {
         
             state.newGame = action.payload;
+			
+		},
+        [getGamePlayers.fulfilled]: (state, action) => {
+        
+            state.gamePlayers = action.payload;
+			
+		},
+        [clearGamePlayers.fulfilled]: (state, action) => {
+        
+            state.gamePlayers = action.payload;
 			
 		},
     }
