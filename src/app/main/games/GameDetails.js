@@ -61,13 +61,16 @@ function GameDetails(props) {
     const [team_first, setTeam_first] = useState("")
     const [team_second, setTeam_second] = useState("")
 
-    const [confirmed_final, setConfirmed_final] = useState("")
-    const [not_confirmed, setNot_confirmed] = useState("")
-    const [not_confirmed_to_max, setNot_confirmed_to_max] = useState("")
+    const [bubbles_min, setBubbles_min] = useState("")
+    const [bubbles_max, setBubbles_max] = useState("")
+    const [bubbles_all, setBubbles_all] = useState("")
     
-	
 	const me = useSelector(({ auth }) => auth.user);
-	const players = useSelector(({ games }) => games.games.gamePlayers);
+	const playersConfirmed = useSelector(({ games }) => games.games.gamePlayers);
+    
+
+
+    console.log("playersConfirmed : ", playersConfirmed)
 
 	function handleSave() {
 
@@ -90,20 +93,6 @@ function GameDetails(props) {
 
 	}
 
-    function Avatar() {
-
-        
-        return (
-
-            <div >
-
-                TEST
-                
-            </div>
-
-        );
-    }
-
 	useEffect(() => {
 
         setLatitude(props.gameData.latitude)
@@ -121,7 +110,7 @@ function GameDetails(props) {
 
         return () => {
             
-            setConfirmed_final("")
+            //setConfirmed_final("")
 
             dispatch(clearGamePlayers());
 
@@ -129,17 +118,50 @@ function GameDetails(props) {
 		
     }, [])
 
+    useEffect(() => {
+
+
+        let not_confirmed = max_players - props.gameData.user_confirm.length
+
+        let copy_playersConfirmed
+
+        //console.log("copy_playersConfirmed BEFORE push : ", copy_playersConfirmed)
+
+        copy_playersConfirmed = Object.assign([], playersConfirmed);
+
+        for(let i = 0 ; i < not_confirmed ; i++){
+
+            console.log("Push one... : ", i)
+
+            copy_playersConfirmed.push( {f_name: "Available spot", data : { photoURL : "/assets/images/avatars/avatar_dark.png" }} )
+
+            
+
+        }
+
+        console.log("copy_playersConfirmed AFTER push : ", copy_playersConfirmed)
+
+        setBubbles_all(copy_playersConfirmed)
+
+
+
+    }, [playersConfirmed])
+
+
 
     useEffect(() => {
 
-        let confirmed = ""
 
-        if(players){
+        if(bubbles_all && bubbles_all.length > 0){
 
-            console.log("number of confirmed : ", players.length)
+            let min = ""
+
+            //console.log("number of confirmed : ", players.length)
         
-            confirmed = players.map((player, index) => (
-                <img key={index} src={player.data.photoURL ? player.data.photoURL : "/assets/images/avatars/avatar.png"} 
+            min = [...Array(min_players)].map((player, index) => (
+
+                <img key={index} src={bubbles_all[index].data.photoURL} 
+                //<img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
                     alt="avatar" 
                     style={{
                         width: 90,
@@ -151,89 +173,52 @@ function GameDetails(props) {
                         margin: 15
                     }}
                 />
+                
+
             ))
 
-        }
-
-        setConfirmed_final(confirmed)
-
-
-
-
-        let not_confirmed = ""
-
-        if(players){
-
-            console.log("number of not_confirmed : ", min_players - players.length - 1)
-
-            not_confirmed = [...Array(min_players - players.length - 1)].map((value , index) => (
-
-                <img id={index + 1} key={index} src="/assets/images/avatars/avatar_dark.png"
-                    alt="avatar" 
-                    style={{
-                        width: 90,
-                        height: 90,
-                        borderRadius: 90 / 2,
-                        borderColor: "white",
-                        borderWidth: 2,
-                        objectFit: "cover",
-                        margin: 15
-                        //display: "inline-block",
-                        //marginLeft: 30,
-                        //marginRight: 20
-                        //marginLeft: "auto",
-                        //marginRight: "auto"
-                    }}
-                />
-
-            ));
+            setBubbles_min(min)
 
         }
 
-        setNot_confirmed(not_confirmed)
+        if(bubbles_all && bubbles_all.length > 0){
 
-        let not_confirmed_to_max = ""
+            let max = ""
 
-        if(players){
-
-            console.log("number of not_confirmed_to_max : ", max_players - min_players)
-
-            not_confirmed_to_max = [...Array(max_players - min_players)].map((value , index) => (
-
-                <img id={index + 1} key={index} src="/assets/images/avatars/avatar_dark.png"
-                    alt="avatar" 
-                    style={{
-                        width: 90,
-                        height: 90,
-                        borderRadius: 90 / 2,
-                        borderColor: "white",
-                        borderWidth: 2,
-                        objectFit: "cover",
-                        margin: 15
-                        //display: "inline-block",
-                        //marginLeft: 30,
-                        //marginRight: 20
-                        //marginLeft: "auto",
-                        //marginRight: "auto"
-                    }}
-                />
-
-            ));
-
-        }
-
-        setNot_confirmed_to_max(not_confirmed_to_max)
-
+            //console.log("number of confirmed : ", players.length)
         
+            max = [...Array(max_players - min_players)].map((player, index) => (
 
-
+                // <img key={index} src={playersConfirmed[index+min_players].data.photoURL} 
+                <img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
+                    alt="avatar" 
+                    style={{
+                        width: 90,
+                        height: 90,
+                        borderRadius: 90 / 2,
+                        borderColor: "white",
+                        borderWidth: 2,
+                        objectFit: "cover",
+                        margin: 15
+                    }}
+                />
                 
-    }, [players])
+
+            ))
+
+            setBubbles_max(max)
+
+        }
+
+
+
+     
+    }, [bubbles_all])
 
 
 
 
-    console.log("confirmed_final : ", confirmed_final)
+    //console.log("confirmed_final : ", confirmed_final)
 
 
 	return (
@@ -276,7 +261,39 @@ function GameDetails(props) {
                     <br/>
                     <br/>
 
-                    { confirmed_final !== ""?
+                    <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
+
+                        {bubbles_min}
+
+                    </div>
+
+
+                    <div style={{color: "#55e7b5", fontSize: 10, textAlign: "center"}}>
+                            
+                        Minimum
+                        
+                    </div>
+
+                    <hr style={{height: 1, backgroundColor: "#55e7b5", marginLeft: 10, marginRight: 10}}></hr>
+
+                    <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
+
+                        {bubbles_max}
+
+                    </div>
+
+
+                    <hr style={{height: 1, backgroundColor: "#ec00c9", marginLeft: 10, marginRight: 10}}></hr>
+
+                    <div style={{color: "#ec00c9", fontSize: 10, textAlign: "center"}}>
+                        
+                        Maximum
+                    
+                    </div>
+
+
+
+                    {/* { confirmed_final !== ""?
 
                     <>
 
@@ -332,6 +349,10 @@ function GameDetails(props) {
 
                         </div>
 
+
+
+
+
                         <hr style={{height: 1, backgroundColor: "#ec00c9", marginLeft: 10, marginRight: 10}}></hr>
 
                         <div style={{color: "#ec00c9", fontSize: 10, textAlign: "center"}}>
@@ -357,7 +378,7 @@ function GameDetails(props) {
                     </div>
 
 
-                    }
+                    } */}
 
 					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
 
