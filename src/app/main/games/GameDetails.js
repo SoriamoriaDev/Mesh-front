@@ -109,8 +109,6 @@ function GameDetails(props) {
         dispatch(getGamePlayers(list_players_confirmed));
 
         return () => {
-            
-            //setConfirmed_final("")
 
             dispatch(clearGamePlayers());
 
@@ -120,30 +118,19 @@ function GameDetails(props) {
 
     useEffect(() => {
 
-
         let not_confirmed = max_players - props.gameData.user_confirm.length
 
         let copy_playersConfirmed
-
-        //console.log("copy_playersConfirmed BEFORE push : ", copy_playersConfirmed)
 
         copy_playersConfirmed = Object.assign([], playersConfirmed);
 
         for(let i = 0 ; i < not_confirmed ; i++){
 
-            console.log("Push one... : ", i)
-
             copy_playersConfirmed.push( {f_name: "Available spot", data : { photoURL : "/assets/images/avatars/avatar_dark.png" }} )
-
-            
 
         }
 
-        console.log("copy_playersConfirmed AFTER push : ", copy_playersConfirmed)
-
         setBubbles_all(copy_playersConfirmed)
-
-
 
     }, [playersConfirmed])
 
@@ -155,13 +142,10 @@ function GameDetails(props) {
         if(bubbles_all && bubbles_all.length > 0){
 
             let min = ""
-
-            //console.log("number of confirmed : ", players.length)
         
             min = [...Array(min_players)].map((player, index) => (
 
                 <img key={index} src={bubbles_all[index].data.photoURL} 
-                //<img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
                     alt="avatar" 
                     style={{
                         width: 90,
@@ -173,7 +157,6 @@ function GameDetails(props) {
                         margin: 15
                     }}
                 />
-                
 
             ))
 
@@ -184,13 +167,11 @@ function GameDetails(props) {
         if(bubbles_all && bubbles_all.length > 0){
 
             let max = ""
-
-            //console.log("number of confirmed : ", players.length)
         
             max = [...Array(max_players - min_players)].map((player, index) => (
 
-                // <img key={index} src={playersConfirmed[index+min_players].data.photoURL} 
-                <img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
+                <img key={index+props.gameData.user_confirm.length} src={bubbles_all[index+props.gameData.user_confirm.length].data.photoURL} 
+                //<img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
                     alt="avatar" 
                     style={{
                         width: 90,
@@ -215,10 +196,6 @@ function GameDetails(props) {
      
     }, [bubbles_all])
 
-
-
-
-    //console.log("confirmed_final : ", confirmed_final)
 
 
 	return (
@@ -261,96 +238,30 @@ function GameDetails(props) {
                     <br/>
                     <br/>
 
-                    <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
+                    { bubbles_all.length > 0 ?
 
-                        {bubbles_min}
-
-                    </div>
-
-
-                    <div style={{color: "#55e7b5", fontSize: 10, textAlign: "center"}}>
-                            
-                        Minimum
-                        
-                    </div>
-
-                    <hr style={{height: 1, backgroundColor: "#55e7b5", marginLeft: 10, marginRight: 10}}></hr>
-
-                    <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
-
-                        {bubbles_max}
-
-                    </div>
-
-
-                    <hr style={{height: 1, backgroundColor: "#ec00c9", marginLeft: 10, marginRight: 10}}></hr>
-
-                    <div style={{color: "#ec00c9", fontSize: 10, textAlign: "center"}}>
-                        
-                        Maximum
-                    
-                    </div>
-
-
-
-                    {/* { confirmed_final !== ""?
-
-                    <>
+                        <>
 
                         <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
 
-                            {confirmed_final}
-
-                            <div
-                            
-                                style={{
-                                    width: 90,
-                                    height: 90,
-                                    borderRadius: 90 / 2,
-                                    borderColor: "white",
-                                    borderWidth: 2,
-                                    objectFit: "cover",
-                                    margin: 15,
-                                    //backgroundColor: "#55e7b5",
-                                    cursor: "pointer",
-                                    //backgroundImage: "url('/assets/images/avatars/avatar.png')", // PROBLEM - MAKE more beautiful button with bg picture
-                                    
-                                }}
-                            >
-
-                                <div style={{ color: "#55e7b5", fontSize: 60}}>
-                                    
-                                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "bold", transform: "translateY(-2px)"}}>+</div>
-
-                                </div>
-
-                            </div>
-
-                            {not_confirmed}
+                            {bubbles_min}
 
                         </div>
 
-                        
 
                         <div style={{color: "#55e7b5", fontSize: 10, textAlign: "center"}}>
-                            
+                                
                             Minimum
-                        
+                            
                         </div>
 
                         <hr style={{height: 1, backgroundColor: "#55e7b5", marginLeft: 10, marginRight: 10}}></hr>
 
-
                         <div style={{display: "flex", justifyContent: "space-evenly", flexWrap: "wrap"}}>
 
-                            
-                            {not_confirmed_to_max}
-
+                            {bubbles_max}
 
                         </div>
-
-
-
 
 
                         <hr style={{height: 1, backgroundColor: "#ec00c9", marginLeft: 10, marginRight: 10}}></hr>
@@ -365,8 +276,6 @@ function GameDetails(props) {
 
                     :
                                         
-                    
-
                     <div className="text-center">
                         <br/>
                         <br/>
@@ -378,7 +287,8 @@ function GameDetails(props) {
                     </div>
 
 
-                    } */}
+                    }
+
 
 					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
 
