@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
-import { clearGamePlayers, getGamePlayers } from './store/gamesSlice';
+import { clearGamePlayers, getGamePlayers, joinGame } from './store/gamesSlice';
 import dayjs from 'dayjs'
 import { LocationOn } from '@material-ui/icons';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
@@ -75,21 +75,24 @@ function GameDetails({gameData, onCrossClick}) {
 
 	function handleJoin() {
 
-		console.log("Join Game! :)")
+		//console.log("Join Game! :)")
+
+        let list_players_confirmed = []
+
+        list_players_confirmed = gameData.user_confirm.map(user => user.user_id)
+
+        //console.log("list_players_confirmed : ", list_players_confirmed)
 		
-		let game = {
+		let payload = {
 			
-            venue_name: venue_name, 
-            latitude: latitude,
-            longitude: longitude,
-            date: date,
-            public: isPublic,
-            status: "open", 
-            owner: me._id
+            gameID: gameData._id, 
+            userID: me._id,
+            list_players_already_confirmed : list_players_confirmed
 
 		}
 
-		//dispatch(joinGame(gameData._id, me._id));
+		dispatch(joinGame(payload));
+        swal("Nice !", "Your are in :)", { icon: "success",} );
 
 
 	}
@@ -119,6 +122,9 @@ function GameDetails({gameData, onCrossClick}) {
 
     useEffect(() => {
 
+        //console.log("playersConfirmed changed...  : ", playersConfirmed)
+
+
         let not_confirmed = max_players - gameData.user_confirm.length
 
         let copy_playersConfirmed
@@ -130,6 +136,8 @@ function GameDetails({gameData, onCrossClick}) {
             copy_playersConfirmed.push( {f_name: "Available spot", data : { photoURL : "/assets/images/avatars/avatar_dark.png" }} )
 
         }
+
+        //console.log("copy_playersConfirmed (Bubbles_all) : ", copy_playersConfirmed)
 
         setBubbles_all(copy_playersConfirmed)
 
@@ -171,7 +179,7 @@ function GameDetails({gameData, onCrossClick}) {
         
             max = [...Array(max_players - min_players)].map((player, index) => (
 
-                <img key={index+gameData.user_confirm.length} src={bubbles_all[index+gameData.user_confirm.length].data.photoURL} 
+                <img key={index+min_players} src={bubbles_all[index+min_players].data.photoURL} 
                     alt="avatar" 
                     style={{
                         width: 90,
@@ -303,10 +311,19 @@ function GameDetails({gameData, onCrossClick}) {
 
 						<div className="px-16" style={{marginLeft: "auto", marginRight: "auto"}}>
 
+                            { playersConfirmed && playersConfirmed.some(player => player._id === me._id ) ?
+
+                            <Button variant="contained" size="medium" color="secondary" >
+                                Leave game
+                            </Button>
+
+                            :
+
                             <Button variant="contained" size="medium" color="secondary" onClick={handleJoin} >
                                 Join game
                             </Button>
 
+                            }
 						</div>
 
 

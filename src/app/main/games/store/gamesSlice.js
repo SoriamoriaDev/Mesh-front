@@ -24,6 +24,29 @@ export const createNewGame = createAsyncThunk('games/createGame', async (game, {
 	return data;
 });
 
+export const joinGame = createAsyncThunk('games/joinGame', async (payload,  { dispatch, getState }) => {
+
+	const response = await axios.post((`${process.env.REACT_APP_API_URL}/event/joingame`), { payload });
+
+	const data = await response.data.data;
+    //console.log("joinGame - Data back from DB : ", response.data)
+
+    if(response.data.succeeded.success === true){
+
+        let newListPlayers = payload.list_players_already_confirmed
+        newListPlayers.push(payload.userID)
+
+        //console.log("newListPlayers : ", newListPlayers)
+
+        dispatch(getGamePlayers(newListPlayers));
+        dispatch(getGames());
+
+    }
+
+	return data;
+
+});
+
 export const getGamePlayers = createAsyncThunk('games/gamePlayers', async (players, { dispatch, getState }) => {
 	
 	const response = await axios.post((`${process.env.REACT_APP_API_URL}/users/listofusers`), { players });
