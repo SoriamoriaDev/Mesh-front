@@ -1,23 +1,15 @@
 /*global google*/
 
 import Tooltip from '@material-ui/core/Tooltip';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Typography from '@material-ui/core/Typography';
 import GoogleMap from 'google-map-react';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { meshMapStyle } from 'app/mesh-files/meshStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGPSlocationEntities } from 'app/fuse-layouts/layout1/components/store/GPSlocationSlice';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CenterFocusWeakIcon from '@material-ui/icons/CenterFocusWeak';
 import MapTarget from '../MapTarget';
 import CreateGame from '../CreateGame';
 import { Dialog } from '@material-ui/core';
 import GameDetails from '../GameDetails';
-
-
-
-
 
 
 function GamesMap(props) {
@@ -181,7 +173,7 @@ function GamesMap(props) {
 
     function closeGameDialog(){
 
-        //console.log("closeGameDialog...")
+        console.log("closeGameDialog...")
         setShowGameDialog(false)
 
     }
@@ -234,7 +226,7 @@ function GamesMap(props) {
                     onClose={closeGameDialog}
                 >
 
-                    <GameDetails props={props} gameData={selectedGame} onSaveClick={closeGameDialog}/> 
+                    <GameDetails props={props} gameData={selectedGame} onCrossClick={closeGameDialog}/> 
 
                 </Dialog>
 

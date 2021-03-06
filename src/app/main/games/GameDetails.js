@@ -1,14 +1,11 @@
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-//import { createNewTeam, clearNewTeam } from './store/teamsSlice';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { clearGamePlayers, getGamePlayers } from './store/gamesSlice';
@@ -17,6 +14,7 @@ import { LocationOn } from '@material-ui/icons';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import { CircularProgress, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,18 +32,24 @@ const useStyles = makeStyles(theme => ({
         // overflow: "hidden",
         // height: "100%",
         // zIndex: 2
-    }
+    },
+    joinButton: {
+		// position: 'absolute',
+		// right: 12,
+		// top: 53,
+		// zIndex: 99
+	},
 }));
 
 
-function GameDetails(props) {
+function GameDetails({gameData, onCrossClick}) {
 
-    console.log("props.gameData : ", props.gameData)
+    //console.log("gameData : ", gameData)
 
 	// eslint-disable-next-line
 	const { t } = useTranslation('mailApp');
 	const dispatch = useDispatch(); 
-    const classes = useStyles(props);
+    //const classes = useStyles(props);
 
     const [latitude, setLatitude] = useState("")
 	const [longitude, setLongitude] = useState("")
@@ -69,12 +73,9 @@ function GameDetails(props) {
 	const playersConfirmed = useSelector(({ games }) => games.games.gamePlayers);
     
 
+	function handleJoin() {
 
-    console.log("playersConfirmed : ", playersConfirmed)
-
-	function handleSave() {
-
-		console.log("Saved! :)")
+		console.log("Join Game! :)")
 		
 		let game = {
 			
@@ -88,23 +89,23 @@ function GameDetails(props) {
 
 		}
 
-		//dispatch(createNewGame(game));
+		//dispatch(joinGame(gameData._id, me._id));
 
 
 	}
 
 	useEffect(() => {
 
-        setLatitude(props.gameData.latitude)
-		setLongitude(props.gameData.longitude)
-		setMin_players(props.gameData.min_players)
-		setMax_players(props.gameData.max_players)
-		setDate(props.gameData.date)
-		setVenue_name(props.gameData.venue_name)
+        setLatitude(gameData.latitude)
+		setLongitude(gameData.longitude)
+		setMin_players(gameData.min_players)
+		setMax_players(gameData.max_players)
+		setDate(gameData.date)
+		setVenue_name(gameData.venue_name)
 
         let list_players_confirmed = []
 
-        list_players_confirmed = props.gameData.user_confirm.map(user => user.user_id)
+        list_players_confirmed = gameData.user_confirm.map(user => user.user_id)
 
         dispatch(getGamePlayers(list_players_confirmed));
 
@@ -118,7 +119,7 @@ function GameDetails(props) {
 
     useEffect(() => {
 
-        let not_confirmed = max_players - props.gameData.user_confirm.length
+        let not_confirmed = max_players - gameData.user_confirm.length
 
         let copy_playersConfirmed
 
@@ -170,8 +171,7 @@ function GameDetails(props) {
         
             max = [...Array(max_players - min_players)].map((player, index) => (
 
-                <img key={index+props.gameData.user_confirm.length} src={bubbles_all[index+props.gameData.user_confirm.length].data.photoURL} 
-                //<img id={index} key={index} src="/assets/images/avatars/avatar_dark.png"
+                <img key={index+gameData.user_confirm.length} src={bubbles_all[index+gameData.user_confirm.length].data.photoURL} 
                     alt="avatar" 
                     style={{
                         width: 90,
@@ -184,15 +184,11 @@ function GameDetails(props) {
                     }}
                 />
                 
-
             ))
 
             setBubbles_max(max)
 
         }
-
-
-
      
     }, [bubbles_all])
 
@@ -205,9 +201,14 @@ function GameDetails(props) {
 			
 				<AppBar position="static">
 					<Toolbar className="flex w-full">
+
 						<Typography variant="subtitle1" color="inherit">
 							Game details
 						</Typography>
+
+                        {/* <CloseIcon style={{marginLeft: "auto", fontSize: 25}} onClick={onCrossClick}/> */}
+                        <CloseIcon style={{marginLeft: "auto", fontSize: 25, cursor: "pointer"}} onClick={onCrossClick}/>
+
 					</Toolbar>
 				</AppBar>
 
@@ -236,7 +237,13 @@ function GameDetails(props) {
                     </div>
 
                     <br/>
-                    <br/>
+
+                    <div style={{fontSize: 20, textAlign: "center", margin: 0}}>
+                        
+                        Line-up
+                    
+                    </div>
+
 
                     { bubbles_all.length > 0 ?
 
@@ -289,26 +296,23 @@ function GameDetails(props) {
 
                     }
 
-
-					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-
-                        
-						
-						<br/>
-
-						<br/>
-						<br/>
-
-
-					</DialogContent>
+                    <br/>
+                    <br/>
 
 					<DialogActions className="justify-between p-8">
-						<div className="px-16">
-							<Button variant="contained" color="primary" onClick={handleSave}>
-								Save
-							</Button>
+
+						<div className="px-16" style={{marginLeft: "auto", marginRight: "auto"}}>
+
+                            <Button variant="contained" size="medium" color="secondary" onClick={handleJoin} >
+                                Join game
+                            </Button>
+
 						</div>
+
+
 					</DialogActions>
+
+                    <br/>
 
 				</div>
 			

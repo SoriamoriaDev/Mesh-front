@@ -1,38 +1,11 @@
 /*global google*/
-import React, { useState, useEffect } from 'react';
-import { meshMapStyle } from 'app/mesh-files/meshStyles';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import CenterFocusWeakIcon from '@material-ui/icons/CenterFocusWeak';
 import { Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 function MapTarget({data, onChildClick, onChooseLocationClick}) {
 	
-	const dispatch = useDispatch();
-
-	// eslint-disable-next-line 
-	const [isClosing, setIsClosing] = useState(false)
-	
-
-	// useEffect(() => { 
-
-	// 		console.log("useEffect in mapTarget")
-			
-
-    // }, [dispatch])
-    
-
-    // function closeTarget(){
-
-    //     setIsClosing(true)
-    // }
-
-
-
-	// if (isClosing) {
-	// 	return null;
-	// }
-
 	return (
 	
             <>
